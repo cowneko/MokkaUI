@@ -49,7 +49,7 @@ RUN cargo fetch --locked --manifest-path src-tauri/Cargo.toml \
 # debug builds, which keep debug info and overflow checks.
 RUN cargo build --locked --manifest-path src-tauri/Cargo.toml --all-targets \
     && cargo build --locked --manifest-path src-tauri/Cargo.toml \
-         --no-default-features --features server --bin mooshieui-server \
+         --no-default-features --features server --bin mokkaui-server \
     && cargo build --locked --manifest-path report-proxy/Cargo.toml --all-targets
 
 # Run the tests once so the image is known good, without failing the build on

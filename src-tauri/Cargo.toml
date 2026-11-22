@@ -1,16 +1,16 @@
 [package]
-name = "comfyui-desktop"
+name = "mokkaui-desktop"
 version = "2.4.7"
 edition = "2021"
 license = "AGPL-3.0-or-later"
-default-run = "comfyui-desktop"
+default-run = "mokkaui-desktop"
 
 [lib]
-name = "comfyui_desktop_lib"
+name = "mokkaui_desktop_lib"
 crate-type = ["lib", "cdylib", "staticlib"]
 
 [[bin]]
-name = "mooshieui-server"
+name = "mokkaui-server"
 path = "src/server_main.rs"
 required-features = ["server"]
 

@@ -2,10 +2,10 @@
 
 fn main() {
     #[cfg(feature = "desktop")]
-    comfyui_desktop_lib::run();
+    mokkaui_desktop_lib::run();
 
     #[cfg(not(feature = "desktop"))]
     eprintln!(
-        "This binary requires the 'desktop' feature. Use mooshieui-server for headless mode."
+        "This binary requires the 'desktop' feature. Use mokkaui-server for headless mode."
     );
 }

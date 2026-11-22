@@ -740,8 +740,8 @@ pub fn comfyui_stderr_log_path(worker_id: Option<u32>) -> Option<std::path::Path
 
 fn stderr_log_name(worker_id: Option<u32>) -> String {
     match worker_id {
-        None => "comfyui-desktop-stderr.log".to_string(),
-        Some(id) => format!("comfyui-desktop-worker{id}-stderr.log"),
+        None => "mokkaui-desktop-stderr.log".to_string(),
+        Some(id) => format!("mokkaui-desktop-worker{id}-stderr.log"),
     }
 }
 

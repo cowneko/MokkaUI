@@ -44,7 +44,7 @@ RUN mkdir -p src-tauri/src && \
 COPY comfyui-nodes/ comfyui-nodes/
 # Pre-build dependencies
 RUN cd src-tauri && \
-    cargo build --release --no-default-features --features server --bin mooshieui-server 2>/dev/null || true
+    cargo build --release --no-default-features --features server --bin mokkaui-server 2>/dev/null || true
 
 # Now copy the real source and build
 COPY src-tauri/ src-tauri/
@@ -53,7 +53,7 @@ COPY src-tauri/ src-tauri/
 COPY src/lib/assets/anima-tags.json src/lib/assets/anima-tags.json
 RUN touch src-tauri/src/lib.rs src-tauri/src/server_main.rs src-tauri/src/main.rs && \
     cd src-tauri && \
-    cargo build --release --no-default-features --features server --bin mooshieui-server
+    cargo build --release --no-default-features --features server --bin mokkaui-server
 
 # ---------------------------------------------------------------------------
 # Stage 2b: CUDA-enabled llama.cpp server (prompt assistant)
@@ -185,7 +185,7 @@ COPY --chown=mooshie:mooshie comfyui-nodes/nanosaur_support/ ${COMFYUI_PATH}/cus
 COPY --chown=mooshie:mooshie comfyui-nodes/kolors_support/ ${COMFYUI_PATH}/custom_nodes/kolors_support/
 
 # Copy server binary, frontend, and entrypoint (root-owned: read-only to the app)
-COPY --from=builder /build/src-tauri/target/release/mooshieui-server /app/mooshieui-server
+COPY --from=builder /build/src-tauri/target/release/mokkaui-server /app/mokkaui-server
 COPY --from=frontend /build/dist /app/dist
 
 # CUDA llama-server + its ggml/llama shared libs for the prompt assistant. The
@@ -215,4 +215,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
     CMD curl -f http://localhost:3200/health || exit 1
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
-CMD ["/app/mooshieui-server"]
+CMD ["/app/mokkaui-server"]

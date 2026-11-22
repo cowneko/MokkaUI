@@ -82,7 +82,7 @@
           # Wrap manually so we can merge the gApps args with the ORT path.
           dontWrapGApps = true;
           postFixup = ''
-            wrapProgram "$out/bin/comfyui-desktop" \
+            wrapProgram "$out/bin/mokkaui-desktop" \
               "''${gappsWrapperArgs[@]}" \
               --set ORT_DYLIB_PATH "${pkgs.onnxruntime}/lib/libonnxruntime.so"
           '';
@@ -95,7 +95,7 @@
             description = "Beginner-friendly desktop frontend for ComfyUI";
             homepage = "https://github.com/Mooshieblob1/MooshieUI";
             license = lib.licenses.agpl3Plus; # src-tauri/Cargo.toml: AGPL-3.0-or-later
-            mainProgram = "comfyui-desktop";
+            mainProgram = "mokkaui-desktop";
             platforms = lib.platforms.linux;
           };
         });
@@ -130,7 +130,7 @@
         # works". This needs no system-level nix-ld and applies automatically
         # to anyone who installs this package.
         packages.default = pkgs.buildFHSEnv {
-          name = "comfyui-desktop";
+          name = "mokkaui-desktop";
           targetPkgs = p: with p; [
             mooshieui-unwrapped
             # GUI runtime (Tauri/webkit) — also available to child processes
@@ -154,7 +154,7 @@
             # tools the setup wizard shells out to
             gnutar gzip coreutils git cacert
           ];
-          runScript = "comfyui-desktop";
+          runScript = "mokkaui-desktop";
           # Surface the desktop entry + icon from the inner package.
           extraInstallCommands = ''
             mkdir -p "$out/share"

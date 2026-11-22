@@ -5,15 +5,15 @@
 
 use std::sync::Arc;
 
-use comfyui_desktop_lib::auth::AuthState;
-use comfyui_desktop_lib::comfyui::{nodes, process, websocket};
-use comfyui_desktop_lib::config::load_persisted_config;
-use comfyui_desktop_lib::state::AppState;
-use comfyui_desktop_lib::{temp_images, webserver};
+use mokkaui_desktop_lib::auth::AuthState;
+use mokkaui_desktop_lib::comfyui::{nodes, process, websocket};
+use mokkaui_desktop_lib::config::load_persisted_config;
+use mokkaui_desktop_lib::state::AppState;
+use mokkaui_desktop_lib::{temp_images, webserver};
 
 #[tokio::main]
 async fn main() {
-    comfyui_desktop_lib::log_buffer::init();
+    mokkaui_desktop_lib::log_buffer::init();
 
     log::info!("MooshieUI Server starting...");
 
@@ -83,10 +83,10 @@ async fn main() {
 
     // Clean up and create temp image directory
     temp_images::init();
-    comfyui_desktop_lib::media_tools::start(state.clone());
-    comfyui_desktop_lib::comfyui::idle_unload::spawn(state.clone());
+    mokkaui_desktop_lib::media_tools::start(state.clone());
+    mokkaui_desktop_lib::comfyui::idle_unload::spawn(state.clone());
     // Opt-in local MCP server; a no-op unless mcp.json enables it.
-    comfyui_desktop_lib::mcp::sync(state.clone()).await;
+    mokkaui_desktop_lib::mcp::sync(state.clone()).await;
 
     // Start the web server (always LAN-enabled in server mode)
     let server_state = state.clone();
@@ -121,7 +121,7 @@ async fn main() {
             let mut ready_any = false;
             for worker in &state.gpu_manager.workers {
                 let status = *worker.status.read().await;
-                if status == comfyui_desktop_lib::comfyui::gpu_manager::WorkerStatus::Idle {
+                if status == mokkaui_desktop_lib::comfyui::gpu_manager::WorkerStatus::Idle {
                     ready_any = true;
                     let event_tx = state.event_tx.clone();
                     if let Err(e) =
@@ -188,11 +188,11 @@ async fn main() {
     // Wait for shutdown signal
     shutdown_signal().await;
     log::info!("Shutdown signal received, cleaning up...");
-    comfyui_desktop_lib::media_tools::shutdown(&state).await;
-    comfyui_desktop_lib::mcp::shutdown().await;
-    comfyui_desktop_lib::prompt_assistant::companion::shutdown().await;
-    comfyui_desktop_lib::commands::music_link::shutdown(&state).await;
-    comfyui_desktop_lib::commands::music_audio_style::shutdown(&state).await;
+    mokkaui_desktop_lib::media_tools::shutdown(&state).await;
+    mokkaui_desktop_lib::mcp::shutdown().await;
+    mokkaui_desktop_lib::prompt_assistant::companion::shutdown().await;
+    mokkaui_desktop_lib::commands::music_link::shutdown(&state).await;
+    mokkaui_desktop_lib::commands::music_audio_style::shutdown(&state).await;
     state.output_owners.flush();
 
     // Use the same ownership checks and process-tree cleanup as desktop mode.

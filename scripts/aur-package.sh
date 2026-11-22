@@ -37,7 +37,7 @@ docker run --rm -e HOST_IDS="$(id -u):$(id -g)" -v "$out:/pkg" "$image" bash -eu
   chown -R builder /pkg
   su builder -c "cd /pkg && makepkg --nodeps --noconfirm --force && makepkg --printsrcinfo > .SRCINFO"
   pkg=$(ls /pkg/mooshieui-bin-*.pkg.tar.*)
-  bsdtar -tf "$pkg" | grep -qx "usr/bin/comfyui-desktop"
+  bsdtar -tf "$pkg" | grep -qx "usr/bin/mokkaui-desktop"
   bsdtar -tf "$pkg" | grep -qx "usr/share/applications/MooshieUI.desktop"
   [ "$(bsdtar -xOf "$pkg" usr/share/mooshieui/package-manager)" = pacman ]
   chown -R "$HOST_IDS" /pkg

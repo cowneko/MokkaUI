@@ -516,7 +516,7 @@ jobs:
           CARGO_TARGET_DIR: /home/blob/ci-cache/mooshieui/target
         run: |
           cd src-tauri
-          cargo build --release --no-default-features --features server --bin mooshieui-server
+          cargo build --release --no-default-features --features server --bin mokkaui-server
 
       # Hosted runners use cargo defaults (CARGO_HOME=~/.cargo, target=src-tauri/target)
       # so the rust-cache action and the upload path below line up.
@@ -524,13 +524,13 @@ jobs:
         if: env.USE_NUC_RUNNER != 'true'
         run: |
           cd src-tauri
-          cargo build --release --no-default-features --features server --bin mooshieui-server
+          cargo build --release --no-default-features --features server --bin mokkaui-server
 
       - name: Upload server binary
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: mooshieui-server-linux-x86_64
-          path: ${{ env.USE_NUC_RUNNER == 'true' && '/home/blob/ci-cache/mooshieui/target/release/mooshieui-server' || 'src-tauri/target/release/mooshieui-server' }}
+          name: mokkaui-server-linux-x86_64
+          path: ${{ env.USE_NUC_RUNNER == 'true' && '/home/blob/ci-cache/mooshieui/target/release/mokkaui-server' || 'src-tauri/target/release/mokkaui-server' }}
           if-no-files-found: error
 
   # -------------------------------------------------------------------------
