@@ -588,9 +588,9 @@ pub fn linked_gallery_folders() -> Vec<String> {
         .unwrap_or_default()
 }
 
-// MokkaUI keeps its own data dir (`~/.local/share/com.mokka.ui`) so the fork can
-// run side by side with a real MooshieUI install and never reads its config.
-const APP_IDENTIFIER: &str = "com.mokka.ui";
+// MokkaUI keeps its own data dir (`~/.local/share/com.mokkaui.desktop`) so the
+// fork runs side by side with MooshieUI and never reads its config.
+const APP_IDENTIFIER: &str = "com.mokkaui.desktop";
 const OLD_APP_IDENTIFIER: &str = "com.comfyui.desktop";
 
 /// The platform-default app data directory (always the same location).
