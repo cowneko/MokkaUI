@@ -2694,6 +2694,44 @@ mod safe_filename_tests {
     }
 }
 
+/// WebP bytes of a gallery thumbnail, addressed by gallery filename.
+///
+/// The `thumbnail://` protocol cannot deliver responses to the webview on some
+/// WebKitGTK builds: the request reaches the handler (the thumbnail is written
+/// to the on-disk cache) yet every `<img>` load and `fetch()` fails client-side.
+/// The gallery asks for the same bytes over IPC and paints a `blob:` URL.
+#[tauri::command]
+pub async fn get_desktop_gallery_thumbnail_bytes(
+    filename: String,
+    max_size: Option<u32>,
+) -> Result<tauri::ipc::InvokeResponseBody, String> {
+    let gallery_dir = crate::config::gallery_dir().ok_or_else(|| "No app data dir".to_string())?;
+    let max_size = max_size.unwrap_or(256).clamp(16, 2048);
+    let data = if crate::linked_folders::is_token(&filename) {
+        let path =
+            resolve_desktop_gallery_path(&gallery_dir, &filename).map_err(|e| e.to_string())?;
+        generate_thumbnail_at(&path, max_size)?
+    } else {
+        generate_thumbnail(&gallery_dir, &filename, max_size)?
+    };
+    Ok(tauri::ipc::InvokeResponseBody::Raw(data))
+}
+
+/// Raw bytes of a gallery image, addressed by gallery filename. Companion of
+/// `get_desktop_gallery_thumbnail_bytes` for the `gallery://` protocol.
+#[tauri::command]
+pub async fn get_desktop_gallery_image_bytes(
+    filename: String,
+) -> Result<tauri::ipc::InvokeResponseBody, String> {
+    let gallery_dir = crate::config::gallery_dir().ok_or_else(|| "No app data dir".to_string())?;
+    let path = resolve_desktop_gallery_path(&gallery_dir, &filename).map_err(|e| e.to_string())?;
+    let data = tokio::task::spawn_blocking(move || std::fs::read(&path))
+        .await
+        .map_err(|e| format!("Read failed: {}", e))?
+        .map_err(|e| format!("Read failed: {}", e))?;
+    Ok(tauri::ipc::InvokeResponseBody::Raw(data))
+}
+
 /// Generate a WebP thumbnail for a gallery image. Used by the `thumbnail://` protocol.
 pub fn generate_thumbnail(
     gallery_dir: &std::path::Path,

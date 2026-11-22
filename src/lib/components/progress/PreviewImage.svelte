@@ -12,6 +12,7 @@
   import { loadOutputImageForGenerationInput, uploadImageUrlForGenerationInput, imageUrlToPngBytes } from "../../utils/galleryActions.js";
   import { normalizeGenerationInputBytes, MAX_INPUT_PIXELS_INPAINT } from "../../utils/editImagePreparation.js";
   import { formatGenerationTime } from "../../utils/localeFormat.js";
+  import { mediaSrc } from "../../utils/tauriMediaSrc.js";
   import {
     DEFAULT_REFINE_UPSCALER,
     DEFAULT_REFINE_UPSCALER_SCALE,
@@ -626,7 +627,7 @@
       ondrop={suppressPreviewOpenOnFileDrop}
     >
       <img
-        src={previewSrc}
+        use:mediaSrc={previewSrc}
         alt={locale.t("preview.alt")}
         class="max-w-full max-h-full object-contain {previewIsTransparent ? CHECKERBOARD_CLASS : ''}"
       />

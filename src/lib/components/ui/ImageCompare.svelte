@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { CompareMode, CompareOrientation } from "../../types/index.js";
   import { locale } from "../../stores/locale.svelte.js";
+  import { mediaSrc } from "../../utils/tauriMediaSrc.js";
 
   interface Props {
     urlA: string;
@@ -173,7 +174,7 @@
 
 {#snippet picture(url: string, alt: string, isB: boolean)}
   <img
-    src={url}
+    use:mediaSrc={url}
     {alt}
     draggable="false"
     class="max-w-full max-h-full object-contain pointer-events-none origin-center"

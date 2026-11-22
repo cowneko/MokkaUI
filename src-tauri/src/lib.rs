@@ -695,6 +695,8 @@ pub fn run() {
             commands::api::read_temp_image,
             commands::api::get_gallery_image_path,
             commands::api::delete_gallery_image,
+            commands::api::get_desktop_gallery_thumbnail_bytes,
+            commands::api::get_desktop_gallery_image_bytes,
             commands::api::rename_gallery_image,
             commands::api::copy_image_to_clipboard,
             commands::api::copy_bytes_to_clipboard,

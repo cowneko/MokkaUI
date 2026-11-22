@@ -1,4 +1,5 @@
 import type { OutputImage } from "../types/index.js";
+import { applyMediaSrc } from "./tauriMediaSrc.js";
 
 export interface LazyThumbnailOpts {
   image: OutputImage;
@@ -26,7 +27,10 @@ export function lazyThumbnail(node: HTMLImageElement, opts: LazyThumbnailOpts) {
     if (img.thumbnailUrl) {
       const size = current.size ?? 384;
       const sep = img.thumbnailUrl.includes("?") ? "&" : "?";
-      return `${img.thumbnailUrl}${sep}size=${size}`;
+      const src = `${img.thumbnailUrl}${sep}size=${size}`;
+      // A retry must bypass whatever the loader may have cached, so the attempt
+      // number rides along instead of re-pointing the element at the same URL.
+      return retryCount > 0 ? `${src}${sep}_retry=${retryCount}` : src;
     }
     if (img.url) return img.url;
     return undefined;
@@ -34,9 +38,11 @@ export function lazyThumbnail(node: HTMLImageElement, opts: LazyThumbnailOpts) {
 
   function applySrc() {
     const src = getSrc();
-    if (src && node.src !== src) {
-      node.src = src;
-    }
+    if (!src) return;
+    // Custom-scheme URLs (thumbnail://…) are never painted by the webview on
+    // the Linux build, which left every tile blank; resolve through fetch/IPC
+    // and hand the element a blob: URL. Other URLs pass straight through.
+    applyMediaSrc(node, src);
   }
 
   function onError() {
@@ -44,12 +50,8 @@ export function lazyThumbnail(node: HTMLImageElement, opts: LazyThumbnailOpts) {
       retryCount++;
       retryTimer = setTimeout(() => {
         retryTimer = null;
-        // Force reload by busting any cache with a retry param
-        const src = getSrc();
-        if (src) {
-          const sep = src.includes("?") ? "&" : "?";
-          node.src = `${src}${sep}_retry=${retryCount}`;
-        }
+        // Retry through the same resolver (busts the cache via getSrc()).
+        applySrc();
       }, RETRY_DELAY_MS * retryCount);
     }
   }

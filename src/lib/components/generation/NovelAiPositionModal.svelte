@@ -26,6 +26,7 @@
   import { gallery } from "../../stores/gallery.svelte.js";
   import { novelai } from "../../stores/novelai.svelte.js";
   import { novelAiOverlappingCharacters } from "../../utils/novelaiModels.js";
+  import { createMediaObjectUrl, needsBlobSrc } from "../../utils/tauriMediaSrc.js";
 
   function onclose() {
     novelai.characterPositionOpen = false;
@@ -121,19 +122,44 @@
       return;
     }
     let cancelled = false;
-    const probe = new Image();
-    probe.onload = () => {
-      if (cancelled) return;
-      const ratio = probe.naturalHeight > 0 ? probe.naturalWidth / probe.naturalHeight : 0;
-      const matches = ratio > 0 && Math.abs(ratio - target) / target <= RATIO_TOLERANCE;
-      backdropUrl = matches ? url : null;
-    };
-    probe.onerror = () => {
-      if (!cancelled) backdropUrl = null;
-    };
-    probe.src = url;
+    // `url` is usually a `gallery://` media URL, and on WebKitGTK such a src never
+    // fires `load` on a detached Image() either — the probe below would silently
+    // fail and the backdrop would stay hidden. Resolve to a blob first, then probe.
+    let ownedUrl: string | null = null;
+    void (async () => {
+      let src = url;
+      if (needsBlobSrc(url)) {
+        try {
+          src = (await createMediaObjectUrl(url)) ?? "";
+        } catch {
+          src = "";
+        }
+        if (cancelled) {
+          if (src) URL.revokeObjectURL(src);
+          return;
+        }
+        ownedUrl = src || null;
+      }
+      if (!src) {
+        backdropUrl = null;
+        return;
+      }
+      const probe = new Image();
+      probe.onload = () => {
+        if (cancelled) return;
+        const ratio = probe.naturalHeight > 0 ? probe.naturalWidth / probe.naturalHeight : 0;
+        const matches = ratio > 0 && Math.abs(ratio - target) / target <= RATIO_TOLERANCE;
+        backdropUrl = matches ? src : null;
+      };
+      probe.onerror = () => {
+        if (!cancelled) backdropUrl = null;
+      };
+      probe.src = src;
+    })();
     return () => {
       cancelled = true;
+      if (ownedUrl) URL.revokeObjectURL(ownedUrl);
+      backdropUrl = null;
     };
   });
 

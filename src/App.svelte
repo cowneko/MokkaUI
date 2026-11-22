@@ -1,5 +1,6 @@
 <script lang="ts">
   import { portal } from "./lib/utils/portal.js";
+  import { mediaSrc } from "./lib/utils/tauriMediaSrc.js";
   import { onMount, onDestroy, untrack } from "svelte";
   import { SvelteSet } from "svelte/reactivity";
   import {
@@ -4889,7 +4890,7 @@
                 >
                   {#if tileSrc}
                     <img
-                      src={tileSrc}
+                      use:mediaSrc={tileSrc}
                       alt={tile.filename}
                       onload={(e) => {
                         if (detectImageAlpha(e.currentTarget as HTMLImageElement)) {
@@ -5023,7 +5024,7 @@
         <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
         <img
           bind:this={lbImgEl}
-          src={gallery.lightboxUrl}
+          use:mediaSrc={gallery.lightboxUrl}
           alt={gallery.selectedImage?.filename ?? locale.t("gallery.no_preview")}
           onload={(e) => { lightboxHasAlpha = detectImageAlpha(e.currentTarget as HTMLImageElement); }}
           class="max-w-full max-h-[85vh] object-contain select-none {lightboxIsTransparent ? CHECKERBOARD_CLASS : ''} {lbPanning ? 'cursor-grabbing' : 'cursor-grab'}"
@@ -5069,7 +5070,7 @@
   <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-70 flex items-center gap-3 rounded-xl border border-indigo-700/60 bg-neutral-900/95 px-3 py-2 shadow-2xl shadow-black/40 backdrop-blur-sm">
     {#if gallery.comparePin.url || gallery.comparePin.thumbnailUrl}
       <img
-        src={gallery.comparePin.thumbnailUrl ?? gallery.comparePin.url}
+        use:mediaSrc={gallery.comparePin.thumbnailUrl ?? gallery.comparePin.url}
         alt=""
         class="h-10 w-10 shrink-0 rounded-lg border border-neutral-700 object-cover bg-neutral-950"
       />
