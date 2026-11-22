@@ -1110,7 +1110,7 @@
   let startupStatusKind = $state<"idle" | "manual" | "starting" | "connecting" | "error">("idle");
   let externalComfyOpen = $state(false);
   let externalComfyPayload = $state<ComfyServerErrorPayload>({ error: "" });
-  let comfyServerUrl = $state("http://127.0.0.1:18288");
+  let comfyServerUrl = $state("http://127.0.0.1:18388");
 
   let photopeaOpen = $state(false);
   let photopeaImage = $state<OutputImage | null>(null);
@@ -2905,7 +2905,7 @@
       applyFontScale(cfg.font_scale);
       autoStartEnabled = cfg.auto_start !== false;
       managedComfyui = cfg.server_mode === "autolaunch";
-      comfyServerUrl = cfg.server_url || `http://127.0.0.1:${cfg.server_port ?? 18288}`;
+      comfyServerUrl = cfg.server_url || `http://127.0.0.1:${cfg.server_port ?? 18388}`;
     } catch {
       // Config not ready yet, defaults are fine
     }

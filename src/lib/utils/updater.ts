@@ -13,7 +13,7 @@ export {
 } from "./autoUpdate.js";
 
 /** GitHub releases page, offered when the in-app updater can't reach GitHub. */
-export const RELEASES_PAGE_URL = "https://github.com/Mooshieblob1/MooshieUI/releases/latest";
+export const RELEASES_PAGE_URL = "https://github.com/cowneko/MokkaUI/releases/latest";
 
 /** Waits between update check attempts. One entry per retry. */
 const RETRY_DELAYS_MS = [2000, 5000];

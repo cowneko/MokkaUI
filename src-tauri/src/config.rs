@@ -317,8 +317,11 @@ pub struct AppConfig {
 
 /// Default report proxy endpoint. In-app error reports post here unless the
 /// config explicitly overrides it (null/empty falls back to prefilled issues).
+/// MokkaUI fork: upstream's hosted proxy belongs to MooshieUI, and a modified
+/// fork must not feed its error inbox — reports default to a prefilled issue on
+/// the MokkaUI repository instead (see `GITHUB_REPO` in `lib/errors/reportError.ts`).
 fn default_report_endpoint() -> Option<String> {
-    Some("https://report.mooshieblob.com/report".to_string())
+    None
 }
 
 /// Default for `llm_reasoning_effort`: the fast end, which is what a prompt
@@ -366,8 +369,8 @@ impl Default for AppConfig {
     fn default() -> Self {
         Self {
             server_mode: ServerMode::AutoLaunch,
-            server_url: "http://127.0.0.1:18288".to_string(),
-            server_port: 18288,
+            server_url: "http://127.0.0.1:18388".to_string(),
+            server_port: 18388,
             comfyui_path: String::new(),
             venv_path: String::new(),
             extra_args: vec![],
@@ -585,7 +588,9 @@ pub fn linked_gallery_folders() -> Vec<String> {
         .unwrap_or_default()
 }
 
-const APP_IDENTIFIER: &str = "com.mooshieui.desktop";
+// MokkaUI keeps its own data dir (`~/.local/share/com.mokka.ui`) so the fork can
+// run side by side with a real MooshieUI install and never reads its config.
+const APP_IDENTIFIER: &str = "com.mokka.ui";
 const OLD_APP_IDENTIFIER: &str = "com.comfyui.desktop";
 
 /// The platform-default app data directory (always the same location).

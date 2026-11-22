@@ -4,7 +4,8 @@ import { openExternalUrl } from "../utils/openExternal.js";
 import { exportLogsContent, getConfig } from "../utils/api.js";
 import { getLogSnapshot } from "../utils/log-buffer.js";
 
-export const GITHUB_REPO = "Mooshieblob1/MooshieUI";
+// MokkaUI fork: error reports belong to the fork, not to upstream MooshieUI.
+export const GITHUB_REPO = "cowneko/MokkaUI";
 
 /**
  * Ceiling for the server-side log build. In browser/hosted mode `exportLogsContent()`

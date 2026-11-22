@@ -17,7 +17,7 @@
     onrestarted?: () => void;
   }
 
-  let { open, payload, serverUrl = "http://127.0.0.1:18288", onclose, onrestarted }: Props =
+  let { open, payload, serverUrl = "http://127.0.0.1:18388", onclose, onrestarted }: Props =
     $props();
 
   let busy = $state(false);
@@ -34,7 +34,7 @@
         : locale.t("app.external_comfy.title_already_running"),
   );
 
-  const port = $derived(payload.port ?? 18288);
+  const port = $derived(payload.port ?? 18388);
 
   function waitForComfyReady(timeoutMs = 120_000): Promise<void> {
     return new Promise((resolve, reject) => {
