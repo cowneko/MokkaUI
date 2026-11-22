@@ -1990,7 +1990,7 @@
       }
     }
 
-    // MooshieUI-exclusive parameters
+    // MokkaUI-exclusive parameters
     metadata.mooshie_model_architecture = params.model_architecture;
     if (params.transparent_background) {
       metadata.mooshie_transparent_background = "true";
@@ -2167,7 +2167,7 @@
         generation.loras = [];
       }
 
-      // MooshieUI-exclusive params round-trip
+      // MokkaUI-exclusive params round-trip
       if (metadata.mooshie_smart_guidance !== undefined) {
         generation.smartGuidance = metadata.mooshie_smart_guidance === "true";
       }
@@ -2629,7 +2629,7 @@
 
   /**
    * Stitch completed grid cell images into a single XYZ-style grid image
-   * with per-cell labels and a single MooshieUI watermark.
+   * with per-cell labels and a single MokkaUI watermark.
    */
   async function stitchGrid(
     cellImages: { blob: Blob; url: string }[],
@@ -2702,7 +2702,7 @@
 
       if (includeBranding && logoImg) {
         ctx.font = wmFont;
-        const textW = ctx.measureText("MooshieUI").width;
+        const textW = ctx.measureText("MokkaUI").width;
         const pillW = wmSize + 6 + textW + wmPad * 2;
         const pillH = wmSize + wmPad;
         const gridBottom = rows * (labelH + cellH) + (rows - 1) * gap;
@@ -2722,7 +2722,7 @@
         ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
         ctx.textAlign = "left";
         ctx.textBaseline = "middle";
-        ctx.fillText("MooshieUI", lx + wmSize + 6, pillY + pillH / 2);
+        ctx.fillText("MokkaUI", lx + wmSize + 6, pillY + pillH / 2);
       }
 
       const gridBlob = await new Promise<Blob>((resolve, reject) => {
@@ -3646,8 +3646,8 @@
     };
     window.addEventListener("mooshie:model-preview-action", modelPreviewActionHandler);
 
-    // Bring ComfyUI up to the pinned tag before starting it. MooshieUI ships
-    // against one exact ComfyUI release, so a MooshieUI update that bumps the
+    // Bring ComfyUI up to the pinned tag before starting it. MokkaUI ships
+    // against one exact ComfyUI release, so a MokkaUI update that bumps the
     // pin would otherwise leave the user running a stale ComfyUI until they
     // happened to find the button in Settings. The app is already
     // interaction-locked here, so the update just extends the startup lock
