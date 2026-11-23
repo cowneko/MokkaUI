@@ -1,3 +1,14 @@
+## What's New in v1.0.0
+
+### MokkaUI
+- **MokkaUI's own version line**: first release under the MokkaUI name, numbered independently of upstream. Own app id (`com.mokkaui.desktop`), own data folder, window class and process names, so it installs and runs side by side with the app it was forked from.
+- **Rebrand pass**: product name, locales, docs, CI workflows, package metadata and ComfyUI node display names all speak MokkaUI.
+
+### Gallery media on Linux
+- **Images paint again**: WebKitGTK cannot decode a `gallery://` URL from a cross-origin page, so gallery tiles, live generation previews, the Image Info viewer and **Compare with** were black rectangles in development builds. Media now travels over the desktop IPC bridge there, with a one-shot byte fallback.
+- **Videos move again**: the media engine refuses to feed a video from a custom URI scheme and emits no event when it does. Playback keeps the native URL wherever it streams (Windows `Range` requests untouched) and escalates once to an in-memory clip on an `error` **or** after 2 s without a first frame. A refused transport now shows **"This video could not be played."** with **Retry** instead of silent black.
+- **Oversized clips decline politely**: clips above 256 MB are refused before any copy into memory, so a huge video fails as a message rather than a dead webview.
+
 ## What's New in v2.4.7
 
 ### Comic Builder

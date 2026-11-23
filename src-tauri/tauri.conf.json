@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/nicerlab/files/main/tauri/tauri.conf.json.schema",
   "productName": "MokkaUI",
-  "version": "2.4.7",
+  "version": "1.0.0",
   "identifier": "com.mokkaui.desktop",
   "build": {
     "frontendDist": "../dist",
