@@ -89,7 +89,7 @@ pub fn recent(n: usize) -> Vec<MusicJob> {
 pub fn pick_checkpoint(wanted: Option<&str>, installed: &[String]) -> Result<String, String> {
     if installed.is_empty() {
         return Err(
-            "No YuE2 checkpoint is installed. Download one from MooshieUI's Music page.".into(),
+            "No YuE2 checkpoint is installed. Download one from MokkaUI's Music page.".into(),
         );
     }
     let Some(wanted) = wanted.map(str::trim).filter(|s| !s.is_empty()) else {
@@ -225,7 +225,7 @@ async fn run(
         .map_err(|e| format!("Music generation is unavailable: {e}"))?;
     if !caps.missing_nodes.is_empty() {
         return Err(format!(
-            "YuE2 nodes are missing from ComfyUI: {}. Update the managed runtime from MooshieUI's Music page.",
+            "YuE2 nodes are missing from ComfyUI: {}. Update the managed runtime from MokkaUI's Music page.",
             caps.missing_nodes.join(", ")
         ));
     }

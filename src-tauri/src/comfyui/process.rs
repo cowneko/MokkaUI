@@ -946,7 +946,7 @@ fn stop_owned_process_blocking(
 }
 
 /// Why a leftover ComfyUI is stopped instead of reused. See [`is_orphaned_leftover`].
-const ORPHAN_RESTART_LOG: &str = "Restarting a ComfyUI left running after MooshieUI \
+const ORPHAN_RESTART_LOG: &str = "Restarting a ComfyUI left running after MokkaUI \
      closed without stopping it (a crash or a forced kill). Keep-alive is off, and it \
      may still be busy with the previous session's job.";
 
@@ -2104,7 +2104,7 @@ pub async fn wait_all_workers_ready(state: &AppState, timeout_secs: u64) {
                         let mut status = w.status.write().await;
                         *status = WorkerStatus::Error;
                         log::error!(
-                            "Worker {} (GPU {}): MooshieUI nodes not loaded at {}: {}",
+                            "Worker {} (GPU {}): MokkaUI nodes not loaded at {}: {}",
                             worker_id,
                             gpu_index,
                             base_url,

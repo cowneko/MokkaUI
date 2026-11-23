@@ -1497,7 +1497,7 @@ pub async fn save_to_gallery(
         "source_filename": filename,
         "metadata": metadata,
     });
-    state.broadcast("mooshie:image_saved", payload.clone());
+    state.broadcast("mokkaui:image_saved", payload.clone());
     if let Err(e) = state.dispatch_webhook_event("image_saved", payload).await {
         log::warn!("Webhook dispatch failed (image_saved): {}", e);
     }
@@ -1534,7 +1534,7 @@ pub async fn save_to_gallery_bytes(
         "source_filename": filename,
         "metadata": metadata,
     });
-    state.broadcast("mooshie:image_saved", payload.clone());
+    state.broadcast("mokkaui:image_saved", payload.clone());
     if let Err(e) = state.dispatch_webhook_event("image_saved", payload).await {
         log::warn!("Webhook dispatch failed (image_saved): {}", e);
     }
@@ -1574,7 +1574,7 @@ pub async fn save_to_gallery_temp(
         "source_filename": filename,
         "metadata": metadata,
     });
-    state.broadcast("mooshie:image_saved", payload.clone());
+    state.broadcast("mokkaui:image_saved", payload.clone());
     if let Err(e) = state.dispatch_webhook_event("image_saved", payload).await {
         log::warn!("Webhook dispatch failed (image_saved): {}", e);
     }
@@ -9355,13 +9355,13 @@ pub async fn build_diagnostic_log(state: &AppState, frontend_logs: Option<Vec<St
     let mut output = String::with_capacity(16 * 1024);
 
     // Header
-    let _ = writeln!(output, "=== MooshieUI Diagnostic Log ===");
+    let _ = writeln!(output, "=== MokkaUI Diagnostic Log ===");
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap_or_default()
         .as_secs();
     let _ = writeln!(output, "Exported: {} (unix timestamp)", now);
-    let _ = writeln!(output, "MooshieUI: {}", env!("CARGO_PKG_VERSION"));
+    let _ = writeln!(output, "MokkaUI: {}", env!("CARGO_PKG_VERSION"));
     let _ = writeln!(
         output,
         "Build: {} / {}",

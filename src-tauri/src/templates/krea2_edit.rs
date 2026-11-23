@@ -108,7 +108,7 @@ pub fn required_node_classes(params: &GenerationParams) -> Vec<(&'static str, St
             (
                 class,
                 format!(
-                    "Krea 2 {} needs the comfyui-krea2edit custom nodes, which have not loaded. Restart managed ComfyUI so MooshieUI can install them, or install https://github.com/lbouaraba/comfyui-krea2edit at {} on the remote server.",
+                    "Krea 2 {} needs the comfyui-krea2edit custom nodes, which have not loaded. Restart managed ComfyUI so MokkaUI can install them, or install https://github.com/lbouaraba/comfyui-krea2edit at {} on the remote server.",
                     method(params).label(),
                     crate::comfyui::nodes::KREA2_EDIT_PACK_REV
                 ),

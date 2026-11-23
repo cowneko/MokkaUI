@@ -1842,7 +1842,7 @@ async fn sse_handler(
         for (pos, (pid, _owner)) in queue.iter().enumerate() {
             if app.prompt_queue.is_owned_by(pid, &sse_username) {
                 let json = serde_json::json!({
-                    "event": "mooshie:queue_update",
+                    "event": "mokkaui:queue_update",
                     "payload": {
                         "prompt_id": pid, "position": pos, "total": total,
                         "kind": app.prompt_queue.kind(pid),
@@ -2760,7 +2760,7 @@ async fn dispatch_command(
     caller_is_local: bool,
 ) -> Result<serde_json::Value, String> {
     if !caller_is_local && takes_host_path(command, args) {
-        return Err("This action only works on the PC running MooshieUI.".to_string());
+        return Err("This action only works on the PC running MokkaUI.".to_string());
     }
     match command {
         // --- Config ---
@@ -3315,7 +3315,7 @@ async fn dispatch_command(
 
             // 6. Broadcast empty queue state and a clear event to all clients
             state.broadcast_queue_positions();
-            state.broadcast("mooshie:queue_cleared", serde_json::json!({}));
+            state.broadcast("mokkaui:queue_cleared", serde_json::json!({}));
 
             Ok(serde_json::json!(null))
         }
@@ -4363,7 +4363,7 @@ async fn dispatch_command(
                 "source_filename": filename,
                 "metadata": metadata,
             });
-            state.broadcast("mooshie:image_saved", payload.clone());
+            state.broadcast("mokkaui:image_saved", payload.clone());
             let _ = state.dispatch_webhook_event("image_saved", payload).await;
             Ok(serde_json::json!(result))
         }
@@ -4417,7 +4417,7 @@ async fn dispatch_command(
                 "source_filename": filename,
                 "metadata": metadata,
             });
-            state.broadcast("mooshie:image_saved", payload.clone());
+            state.broadcast("mokkaui:image_saved", payload.clone());
             let _ = state.dispatch_webhook_event("image_saved", payload).await;
             Ok(serde_json::json!(result))
         }
@@ -4477,7 +4477,7 @@ async fn dispatch_command(
                 "source_filename": filename,
                 "metadata": metadata,
             });
-            state.broadcast("mooshie:image_saved", payload.clone());
+            state.broadcast("mokkaui:image_saved", payload.clone());
             let _ = state.dispatch_webhook_event("image_saved", payload).await;
             // Keep the temp file available briefly for clients that still hold
             // the temp URL or race a manual save against gallery persistence.

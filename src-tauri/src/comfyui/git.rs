@@ -114,7 +114,7 @@ pub(crate) async fn ensure_available(
         let _ = (base, client, network_proxy);
         let git = PathBuf::from("git");
         verify_git(&git).await.map_err(|e| {
-            format!("Git is required to update ComfyUI. Install Git and restart MooshieUI. {e}")
+            format!("Git is required to update ComfyUI. Install Git and restart MokkaUI. {e}")
         })?;
         Ok(git)
     }

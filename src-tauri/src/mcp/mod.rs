@@ -180,7 +180,7 @@ pub fn normalize_public_url(input: &str) -> Result<String, String> {
         return Ok(String::new());
     }
     let url = reqwest::Url::parse(trimmed)
-        .map_err(|_| "Enter the public address as a full URL, like https://mooshie.example.com")?;
+        .map_err(|_| "Enter the public address as a full URL, like https://mokka.example.com")?;
     if url.scheme() != "https" {
         return Err("The public address must start with https://".into());
     }
@@ -492,7 +492,7 @@ async fn serve(
     if !authorized {
         return (
             StatusCode::UNAUTHORIZED,
-            Json(json!({ "error": "Missing or wrong MooshieUI MCP token. Copy it from Settings > AI assistants (MCP)." })),
+            Json(json!({ "error": "Missing or wrong MokkaUI MCP token. Copy it from Settings > AI assistants (MCP)." })),
         )
             .into_response();
     }
@@ -543,13 +543,13 @@ async fn serve(
     (StatusCode::OK, Json(reply)).into_response()
 }
 
-const INSTRUCTIONS: &str = "MooshieUI is a local image and music generator built on ComfyUI, with NovelAI support. \
+const INSTRUCTIONS: &str = "MokkaUI is a local image and music generator built on ComfyUI, with NovelAI support. \
 generate_image reuses the owner's last setup for a model (loaders, upscale, face fix, guidance; NovelAI quality tags \
 and UC preset), so only models listed with a saved setup in get_status can be used; generating once with a model in \
-MooshieUI saves its setup. NovelAI images over MCP are always free ones (Opus, at most 1 megapixel and 28 steps). \
+MokkaUI saves its setup. NovelAI images over MCP are always free ones (Opus, at most 1 megapixel and 28 steps). \
 Prompts take __wildcards__ and {a|b} choices, and saved characters, artist styles and prompt chunks can be added by \
-name (list_library). Images land in the MooshieUI gallery. generate_music makes songs with YuE2 \
-(list_models category music shows whether it is installed) and saves FLAC files on the MooshieUI machine. \
+name (list_library). Images land in the MokkaUI gallery. generate_music makes songs with YuE2 \
+(list_models category music shows whether it is installed) and saves FLAC files on the MokkaUI machine. \
 Check get_status first.";
 
 async fn dispatch(
@@ -572,7 +572,7 @@ async fn dispatch(
             Ok(json!({
                 "protocolVersion": version,
                 "capabilities": { "tools": { "listChanged": false } },
-                "serverInfo": { "name": "mooshieui", "title": "MooshieUI", "version": env!("CARGO_PKG_VERSION") },
+                "serverInfo": { "name": "mooshieui", "title": "MokkaUI", "version": env!("CARGO_PKG_VERSION") },
                 "instructions": INSTRUCTIONS,
             }))
         }

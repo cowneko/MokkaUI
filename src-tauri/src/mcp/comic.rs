@@ -1511,7 +1511,7 @@ pub fn redo(args: &Value) -> Result<(Plan, HashMap<usize, String>), String> {
         .filter(|s| !s.is_empty())
         .ok_or("job_id is required: the comic job to redo panels of")?;
     let rx = get(id).ok_or_else(|| {
-        format!("No comic job '{id}' (jobs are forgotten when MooshieUI restarts)")
+        format!("No comic job '{id}' (jobs are forgotten when MokkaUI restarts)")
     })?;
     let old = rx.borrow().clone();
     if !old.status.finished() {

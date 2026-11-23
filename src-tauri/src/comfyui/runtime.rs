@@ -61,7 +61,7 @@ pub fn apply_constraints(cmd: &mut tokio::process::Command) -> Result<(), String
 #[cfg(target_os = "macos")]
 pub fn validate_host() -> Result<(), String> {
     if !cfg!(target_arch = "aarch64") {
-        return Err("Local Mac setup requires the native Apple Silicon app. Intel Macs can use a remote MooshieUI server in their browser.".into());
+        return Err("Local Mac setup requires the native Apple Silicon app. Intel Macs can use a remote MokkaUI server in their browser.".into());
     }
     let output = std::process::Command::new("/usr/bin/sw_vers")
         .arg("-productVersion")

@@ -123,7 +123,7 @@ pub(crate) async fn fetch_output(
     .as_str()
     .filter(|name| crate::commands::api::is_single_safe_filename(name))
     .ok_or_else(|| {
-        AppError::Other("Remote video output requires updated MooshieUI nodes".into())
+        AppError::Other("Remote video output requires updated MokkaUI nodes".into())
     })?;
     let worker_id = state.prompt_queue.worker_of(prompt).unwrap_or(0);
     let server = match state.gpu_manager.workers.iter().find(|w| w.id == worker_id) {
@@ -217,7 +217,7 @@ async fn fetch_json(state: &AppState, url: &str) -> Result<Value, AppError> {
     if !response.status().is_success() {
         return Err(AppError::Other(
             if response.status() == reqwest::StatusCode::NOT_FOUND {
-                "Retained draft data or updated MooshieUI nodes are missing on this ComfyUI server."
+                "Retained draft data or updated MokkaUI nodes are missing on this ComfyUI server."
                     .into()
             } else {
                 format!("ComfyUI draft request failed ({})", response.status())
@@ -437,7 +437,7 @@ pub(crate) async fn retake_draft(
     let cap = fetch_json(state, &format!("{server}/mooshie/h3/capabilities")).await?;
     if cap["retake"] != true {
         return Err(AppError::Other(
-            "Update the MooshieUI custom nodes on this ComfyUI server to retake clips.".into(),
+            "Update the MokkaUI custom nodes on this ComfyUI server to retake clips.".into(),
         ));
     }
     // A new seed: the draft's own seed would re-create the same frames.

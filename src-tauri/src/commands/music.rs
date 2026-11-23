@@ -162,7 +162,7 @@ pub(crate) async fn submit(
     let caps = capabilities(state).await?;
     if !caps.missing_nodes.is_empty() {
         return Err(AppError::InvalidWorkflow(format!(
-            "YuE2 support is missing from the running ComfyUI server: {}. Update MooshieUI's managed runtime from the Music page, or update ComfyUI on the remote host, then restart it.",
+            "YuE2 support is missing from the running ComfyUI server: {}. Update MokkaUI's managed runtime from the Music page, or update ComfyUI on the remote host, then restart it.",
             caps.missing_nodes.join(", ")
         )));
     }
@@ -179,7 +179,7 @@ pub(crate) async fn submit(
     let worker = caps.workers.iter().find(|w| w.missing_nodes.is_empty()
         && w.checkpoints.contains(&params.checkpoint)
         && (params.sampling.cfg_scale == -1.0 || w.extended))
-        .ok_or_else(|| AppError::InvalidWorkflow("No worker has this checkpoint and the requested music controls. Update MooshieUI's nodes or use automatic guidance.".into()))?;
+        .ok_or_else(|| AppError::InvalidWorkflow("No worker has this checkpoint and the requested music controls. Update MokkaUI's nodes or use automatic guidance.".into()))?;
     state.free_llm_vram_for_generation().await;
     let (worker_id, response) = state
         .gpu_manager
@@ -224,7 +224,7 @@ pub(crate) async fn transcribe_native(
         super::music_cover::decode_audio(&request.audio_base64, &request.filename)?;
     let caps = capabilities(state).await?;
     let worker = caps.workers.iter().find(|w| w.cover_missing_nodes.is_empty() && w.audio_encoders.contains(&request.encoder))
-        .ok_or_else(|| AppError::InvalidWorkflow("Install the SheetSage2 audio encoder and current MooshieUI nodes on the same ComfyUI worker, then refresh.".into()))?;
+        .ok_or_else(|| AppError::InvalidWorkflow("Install the SheetSage2 audio encoder and current MokkaUI nodes on the same ComfyUI worker, then refresh.".into()))?;
     let endpoint = state
         .gpu_manager
         .workers

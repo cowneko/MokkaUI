@@ -218,9 +218,9 @@ impl Purpose {
     fn how_to_add(self, model: &str) -> String {
         match self {
             Self::Generate => {
-                format!("Generate one txt2img image with '{model}' in MooshieUI to add it.")
+                format!("Generate one txt2img image with '{model}' in MokkaUI to add it.")
             }
-            Self::Edit => format!("Run one Image Edit with '{model}' in MooshieUI to add it."),
+            Self::Edit => format!("Run one Image Edit with '{model}' in MokkaUI to add it."),
         }
     }
 }
@@ -236,8 +236,8 @@ pub fn find(all: &[Setup], model: Option<&str>, purpose: Purpose) -> Result<Setu
         .collect();
     let Some(wanted) = model.map(str::trim).filter(|m| !m.is_empty()) else {
         return setups.first().cloned().ok_or_else(|| match purpose {
-            Purpose::Generate => "No saved generation setup yet. Generate one image in MooshieUI (txt2img, local or NovelAI) with the model you want, then try again.".to_string(),
-            Purpose::Edit => "No saved Image Edit setup yet. Run one Image Edit in MooshieUI with an edit model (Qwen Image Edit, Flux Kontext, FLUX 3 Klein, MOSS-Image or Anima), then try again.".to_string(),
+            Purpose::Generate => "No saved generation setup yet. Generate one image in MokkaUI (txt2img, local or NovelAI) with the model you want, then try again.".to_string(),
+            Purpose::Edit => "No saved Image Edit setup yet. Run one Image Edit in MokkaUI with an edit model (Qwen Image Edit, Flux Kontext, FLUX 3 Klein, MOSS-Image or Anima), then try again.".to_string(),
         });
     };
     let lower = wanted.to_ascii_lowercase();

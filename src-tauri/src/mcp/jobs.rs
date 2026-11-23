@@ -287,7 +287,7 @@ async fn submit_novelai(
         .await
         .map_err(|e| e.to_string())?;
     if !owner_has_opus(state, &credential).await? {
-        return Err("The NovelAI key in MooshieUI isn't on Opus, so every NovelAI image would cost Anlas. MCP only makes free NovelAI images; use a local model instead.".into());
+        return Err("The NovelAI key in MokkaUI isn't on Opus, so every NovelAI image would cost Anlas. MCP only makes free NovelAI images; use a local model instead.".into());
     }
     let prompt_id = crate::novelai::new_prompt_id();
     state.prompt_queue.insert(&prompt_id, None);

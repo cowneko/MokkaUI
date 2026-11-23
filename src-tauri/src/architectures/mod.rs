@@ -760,7 +760,7 @@ pub fn required_node_classes(params: &GenerationParams) -> Vec<(&'static str, St
             out.push((
                 *class,
                 format!(
-                    "{} needs the {} custom node pack, which has not loaded. Restart managed ComfyUI so MooshieUI can install it, or install {} at {} on the remote server.",
+                    "{} needs the {} custom node pack, which has not loaded. Restart managed ComfyUI so MokkaUI can install it, or install {} at {} on the remote server.",
                     family.label, pack.name, pack.git_url, pack.git_rev
                 ),
             ));

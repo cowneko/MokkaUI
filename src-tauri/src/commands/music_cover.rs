@@ -42,7 +42,7 @@ fn runtime() -> Result<(PathBuf, PathBuf, String), AppError> {
             }
             Ok((python, model, device))
         }
-        _ => Err(AppError::Other("Set MOOSHIE_SHEETSAGE2_PYTHON to the separate environment's Python executable and MOOSHIE_SHEETSAGE2_MODEL_DIR to the downloaded SheetSage2 folder on the MooshieUI host, then restart MooshieUI. You can also import a score.abc transcribed externally.".into())),
+        _ => Err(AppError::Other("Set MOOSHIE_SHEETSAGE2_PYTHON to the separate environment's Python executable and MOOSHIE_SHEETSAGE2_MODEL_DIR to the downloaded SheetSage2 folder on the MokkaUI host, then restart MokkaUI. You can also import a score.abc transcribed externally.".into())),
     }
 }
 

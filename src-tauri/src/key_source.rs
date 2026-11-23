@@ -129,8 +129,8 @@ pub fn owner_status(config: &crate::config::AppConfig) -> KeyEnvStatus {
 pub fn missing_message(stored: Option<&str>, provider: &str) -> Option<String> {
     let name = env_name(stored?)?;
     Some(format!(
-        "The {provider} key is set to come from the environment variable {name}, but MooshieUI \
-         does not see a value for it. Set it, then restart MooshieUI."
+        "The {provider} key is set to come from the environment variable {name}, but MokkaUI \
+         does not see a value for it. Set it, then restart MokkaUI."
     ))
 }
 

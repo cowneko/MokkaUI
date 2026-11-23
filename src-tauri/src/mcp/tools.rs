@@ -35,7 +35,7 @@ fn generate_image_schema() -> Value {
     let mut schema = json!({
         "name": "generate_image",
         "title": "Generate image",
-        "description": "Generate images with MooshieUI (txt2img), on a local model or NovelAI. Reuses the owner's last setup for the model (loaders, upscale, face fix, guidance; for NovelAI its quality tags, UC preset and sampler); you change the prompt and any of the optional fields. Prompts may use __name__ wildcards from the owner's wildcard files and {a|b|c} random choices (list_library kind wildcards). Saved characters, artist styles and prompt chunks can be added by name (list_library). NovelAI images must stay inside the free Opus window: at most 1 megapixel, 28 steps, one image. Images are saved to the MooshieUI gallery and returned as previews, each with a url that downloads the full-size file. Waits up to 10 minutes for the result unless wait is false; then poll get_job (get_status lists recent job ids).",
+        "description": "Generate images with MokkaUI (txt2img), on a local model or NovelAI. Reuses the owner's last setup for the model (loaders, upscale, face fix, guidance; for NovelAI its quality tags, UC preset and sampler); you change the prompt and any of the optional fields. Prompts may use __name__ wildcards from the owner's wildcard files and {a|b|c} random choices (list_library kind wildcards). Saved characters, artist styles and prompt chunks can be added by name (list_library). NovelAI images must stay inside the free Opus window: at most 1 megapixel, 28 steps, one image. Images are saved to the MokkaUI gallery and returned as previews, each with a url that downloads the full-size file. Waits up to 10 minutes for the result unless wait is false; then poll get_job (get_status lists recent job ids).",
         "inputSchema": {
             "type": "object",
             "required": ["prompt"],
@@ -48,7 +48,7 @@ fn generate_image_schema() -> Value {
                 "chunks": {
                     "type": "array",
                     "maxItems": 30,
-                    "description": "Saved prompt chunk names (list_library kind chunks), or { name, mode } with mode prepend, append or random (one random line). Default: the mode the chunk is active with in MooshieUI, else append. Their UC is added.",
+                    "description": "Saved prompt chunk names (list_library kind chunks), or { name, mode } with mode prepend, append or random (one random line). Default: the mode the chunk is active with in MokkaUI, else append. Their UC is added.",
                     "items": {
                         "anyOf": [
                             { "type": "string" },
@@ -56,7 +56,7 @@ fn generate_image_schema() -> Value {
                         ]
                     }
                 },
-                "use_active_styles": { "type": "boolean", "description": "Also add the styles and chunks currently active in MooshieUI. Default false." },
+                "use_active_styles": { "type": "boolean", "description": "Also add the styles and chunks currently active in MokkaUI. Default false." },
                 "source_image": { "type": "string", "description": "Turns this into img2img (or outpainting when outpaint padding is set): a gallery filename, or the image as base64 or a data URL. The size follows the source's aspect ratio unless width/height are given. Works on NovelAI too (free window) for img2img." },
                 "denoise": { "type": "number", "minimum": 0.05, "maximum": 1, "description": "With source_image: how much to change it. Default 0.6 (1.0 when outpainting)." },
                 "reference_images": { "type": "array", "maxItems": 8, "items": { "type": "string" }, "description": "Local models only: one or two character/style reference images (gallery filenames or base64) for the model's style reference (Anima Reference Adapter, Flux Redux, IP-Adapter), using the setup's reference settings. When the owner's Anima setup uses SnapRef, up to 8 images of the same character." },
@@ -130,7 +130,7 @@ pub fn definitions() -> Value {
     Value::Array(vec![
         json!({
             "name": "get_status",
-            "title": "MooshieUI status",
+            "title": "MokkaUI status",
             "description": "Check whether ComfyUI is running, what is queued, recent image and music jobs, and which models have a saved generation setup (only those can be used by generate_image). Call this first.",
             "inputSchema": { "type": "object", "properties": {} },
             "annotations": { "readOnlyHint": true }
@@ -153,7 +153,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "generate_music",
             "title": "Generate music",
-            "description": "Generate a song with YuE2 (the MooshieUI Music page backend). Describe the style; add lyrics for vocals or leave them out for instrumental music. The FLAC (and the ABC score YuE2 planned) is saved on the MooshieUI machine and its path returned. Songs take minutes: this waits up to 10 minutes unless wait is false; then poll get_job.",
+            "description": "Generate a song with YuE2 (the MokkaUI Music page backend). Describe the style; add lyrics for vocals or leave them out for instrumental music. The FLAC (and the ABC score YuE2 planned) is saved on the MokkaUI machine and its path returned. Songs take minutes: this waits up to 10 minutes unless wait is false; then poll get_job.",
             "inputSchema": {
                 "type": "object",
                 "required": ["style"],
@@ -174,7 +174,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "create_comic",
             "title": "Make a comic page",
-            "description": "Lay out a comic page, generate every panel and assemble the page, like the MooshieUI Comic page. Give one panels entry per panel in reading order. Each panel is generated on its own with the owner's setup for the model (NovelAI stays inside the free Opus window), then cropped into its box with gutters and black borders; panel images and the page are saved to the gallery. The cast's appearance tags, the page style and the setting are added to every panel, so a panel prompt only says what happens in it: framing, who (by count and name), pose, action, expression, background. On NovelAI each panel's dialogue is lettered in speech bubbles (a Text: block); other models draw no dialogue. For NovelAI V5 write each prompt as a tag line, a blank line, then one or two sentences of prose that name each speaker and quote their line word for word; put only the spoken words in dialogue, one string per bubble, at most two short bubbles per panel, no speaker names. mode one_image (NovelAI V4 or later, up to 6 panels) draws the whole page as one image with each panel as a positioned character prompt instead. A page takes minutes: this waits up to 10 minutes unless wait is false; then poll get_job. Use redo_comic_panels to remake panels you don't like.",
+            "description": "Lay out a comic page, generate every panel and assemble the page, like the MokkaUI Comic page. Give one panels entry per panel in reading order. Each panel is generated on its own with the owner's setup for the model (NovelAI stays inside the free Opus window), then cropped into its box with gutters and black borders; panel images and the page are saved to the gallery. The cast's appearance tags, the page style and the setting are added to every panel, so a panel prompt only says what happens in it: framing, who (by count and name), pose, action, expression, background. On NovelAI each panel's dialogue is lettered in speech bubbles (a Text: block); other models draw no dialogue. For NovelAI V5 write each prompt as a tag line, a blank line, then one or two sentences of prose that name each speaker and quote their line word for word; put only the spoken words in dialogue, one string per bubble, at most two short bubbles per panel, no speaker names. mode one_image (NovelAI V4 or later, up to 6 panels) draws the whole page as one image with each panel as a positioned character prompt instead. A page takes minutes: this waits up to 10 minutes unless wait is false; then poll get_job. Use redo_comic_panels to remake panels you don't like.",
             "inputSchema": {
                 "type": "object",
                 "required": ["panels"],
@@ -222,7 +222,7 @@ pub fn definitions() -> Value {
                                 "prompt": { "type": "string", "description": "What this panel shows." },
                                 "dialogue": { "type": "array", "maxItems": 4, "items": { "type": "string" }, "description": "Speech bubbles, the words only, exactly as lettered. NovelAI only." },
                                 "cast": { "type": "array", "items": { "type": "string" }, "description": "Names from cast who are in this panel; their appearance tags are added." },
-                                "characters": { "type": "array", "maxItems": 6, "items": { "type": "string" }, "description": "Saved MooshieUI character names (list_library) in this panel." },
+                                "characters": { "type": "array", "maxItems": 6, "items": { "type": "string" }, "description": "Saved MokkaUI character names (list_library) in this panel." },
                                 "setting": { "type": "string", "description": "Replaces the page setting for this panel (a flashback, a cut away)." },
                                 "negative_prompt": { "type": "string" }
                             }
@@ -251,7 +251,7 @@ pub fn definitions() -> Value {
                     "negative_prompt": { "type": "string", "description": "Replaces the setup's negative prompt for every panel." },
                     "styles": { "type": "array", "maxItems": 20, "items": { "type": "string" }, "description": "Saved artist style names, added to every panel." },
                     "chunks": { "type": "array", "maxItems": 30, "items": { "type": "string" }, "description": "Saved prompt chunk names, added to every panel." },
-                    "use_active_styles": { "type": "boolean", "description": "Also add the styles and chunks active in MooshieUI. Default false." },
+                    "use_active_styles": { "type": "boolean", "description": "Also add the styles and chunks active in MokkaUI. Default false." },
                     "seed": { "type": "integer", "description": "Panel n uses seed + n - 1. Omit for random." },
                     "steps": { "type": "integer", "minimum": 1, "maximum": 150 },
                     "cfg": { "type": "number", "minimum": 0, "maximum": 30 },
@@ -315,7 +315,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "cancel_generation",
             "title": "Cancel generation",
-            "description": "Cancel a generate_image, create_comic or generate_music job, or every unfinished one when job_id is omitted. Generations started in the MooshieUI window are not touched.",
+            "description": "Cancel a generate_image, create_comic or generate_music job, or every unfinished one when job_id is omitted. Generations started in the MokkaUI window are not touched.",
             "inputSchema": {
                 "type": "object",
                 "properties": { "job_id": { "type": "string" } }
@@ -325,7 +325,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "search_gallery",
             "title": "Search gallery",
-            "description": "Find images in the MooshieUI gallery by words in their prompt, negative prompt or model name, or list the newest when query is empty. Filter by board, favourites or rating. Each result has a download link (url) for the full-size file.",
+            "description": "Find images in the MokkaUI gallery by words in their prompt, negative prompt or model name, or list the newest when query is empty. Filter by board, favourites or rating. Each result has a download link (url) for the full-size file.",
             "inputSchema": {
                 "type": "object",
                 "properties": {
@@ -408,7 +408,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "upscale_image",
             "title": "Upscale image",
-            "description": "Upscale a gallery image (or a base64 image) and refine it with a local model, the way MooshieUI's Refine does. Uses the setup of the model that made the image when it has one, else the given or most recent local setup, and the image's own prompt to guide the refine.",
+            "description": "Upscale a gallery image (or a base64 image) and refine it with a local model, the way MokkaUI's Refine does. Uses the setup of the model that made the image when it has one, else the given or most recent local setup, and the image's own prompt to guide the refine.",
             "inputSchema": {
                 "type": "object",
                 "required": ["image"],
@@ -436,7 +436,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "search_eagle",
             "title": "Search Eagle library",
-            "description": "Search the owner's Eagle (eagle.cool) library, which must be open on the MooshieUI machine. Returns item ids, names, tags, notes and download links. list_folders: true lists the folders instead.",
+            "description": "Search the owner's Eagle (eagle.cool) library, which must be open on the MokkaUI machine. Returns item ids, names, tags, notes and download links. list_folders: true lists the folders instead.",
             "inputSchema": {
                 "type": "object",
                 "properties": {
@@ -469,7 +469,7 @@ pub fn definitions() -> Value {
         json!({
             "name": "send_to_eagle",
             "title": "Send to Eagle",
-            "description": "Add gallery images to the owner's Eagle library, with prompt tags and the prompt, negative and seed as the note. Goes to the folder set in MooshieUI's Settings unless folder is given.",
+            "description": "Add gallery images to the owner's Eagle library, with prompt tags and the prompt, negative and seed as the note. Goes to the folder set in MokkaUI's Settings unless folder is given.",
             "inputSchema": {
                 "type": "object",
                 "required": ["filenames"],
@@ -620,7 +620,7 @@ async fn get_status(state: &Arc<AppState>) -> Result<Value, String> {
         "recent_comic_jobs": recent_comics,
         "setups": setups,
         "note": if setups.is_empty() {
-            "No saved setups yet: generate one txt2img image in MooshieUI with a model to make it usable here."
+            "No saved setups yet: generate one txt2img image in MokkaUI with a model to make it usable here."
         } else {
             "generate_image can use any model in setups."
         },
@@ -1082,11 +1082,11 @@ async fn list_music_models(state: &Arc<AppState>) -> Result<Value, String> {
         .map_err(|e| format!("Could not check music support (is ComfyUI running?): {e}"))?;
     let note = if !caps.missing_nodes.is_empty() {
         format!(
-            "YuE2 nodes are missing from ComfyUI ({}). Update the managed runtime from MooshieUI's Music page.",
+            "YuE2 nodes are missing from ComfyUI ({}). Update the managed runtime from MokkaUI's Music page.",
             caps.missing_nodes.join(", ")
         )
     } else if caps.checkpoints.is_empty() {
-        "No YuE2 checkpoint is installed. Download one from MooshieUI's Music page.".into()
+        "No YuE2 checkpoint is installed. Download one from MokkaUI's Music page.".into()
     } else {
         "generate_music can use any of these.".into()
     };
@@ -1208,18 +1208,18 @@ async fn get_job(args: &Value, ctx: &CallContext) -> Result<Value, String> {
     let wait = Duration::from_secs(args["wait_seconds"].as_u64().unwrap_or(0)).min(ctx.max_wait);
     if comic::is_comic_job(id) {
         let rx = comic::get(id)
-            .ok_or_else(|| format!("No job '{id}' (jobs are forgotten when MooshieUI restarts)"))?;
+            .ok_or_else(|| format!("No job '{id}' (jobs are forgotten when MokkaUI restarts)"))?;
         let job = jobs::wait(rx, wait).await;
         return comic_result(&job, args, ctx).await;
     }
     if music::is_music_job(id) {
         let rx = music::get(id)
-            .ok_or_else(|| format!("No job '{id}' (jobs are forgotten when MooshieUI restarts)"))?;
+            .ok_or_else(|| format!("No job '{id}' (jobs are forgotten when MokkaUI restarts)"))?;
         let job = jobs::wait(rx, wait).await;
         return music_job_result(&job, args["include_audio"].as_bool().unwrap_or(false)).await;
     }
     let rx = jobs::get(id)
-        .ok_or_else(|| format!("No job '{id}' (jobs are forgotten when MooshieUI restarts)"))?;
+        .ok_or_else(|| format!("No job '{id}' (jobs are forgotten when MokkaUI restarts)"))?;
     let job = jobs::wait(rx, wait).await;
     job_result(&job, args, ctx).await
 }
@@ -1326,7 +1326,7 @@ async fn list_library(args: &Value) -> Result<Value, String> {
                 "uc": s.negative,
                 "active": lib.active_style_ids.contains(&s.id),
             })).collect::<Vec<_>>(),
-            "note": "Pass names in generate_image's styles, or use_active_styles: true for the ones active in MooshieUI.",
+            "note": "Pass names in generate_image's styles, or use_active_styles: true for the ones active in MokkaUI.",
         }),
         "chunks" => json!({
             "kind": "chunks",

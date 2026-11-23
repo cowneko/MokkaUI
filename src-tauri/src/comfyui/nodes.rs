@@ -712,7 +712,7 @@ pub async fn ensure_required_controlnet_nodes(
     } else {
         log::warn!(
             "Some ControlNet custom node packages could not be installed ({}). \
-             Core MooshieUI generation still works; built-in ControlNet presets may fail until these install. \
+             Core MokkaUI generation still works; built-in ControlNet presets may fail until these install. \
              If pip timed out, set Settings → Connection → PyPI mirror URL (e.g. Tsinghua) in addition to any proxy.",
             failures.join("; ")
         );
@@ -1604,7 +1604,7 @@ pub async fn verify_required_h3_director_nodes(
     }
 
     Err(format!(
-        "{}: {}. MooshieUI deploys these on start; fully stop ComfyUI/python.exe and start MooshieUI again so they load. They require ComfyUI 0.30 or newer.",
+        "{}: {}. MokkaUI deploys these on start; fully stop ComfyUI/python.exe and start MokkaUI again so they load. They require ComfyUI 0.30 or newer.",
         MISSING_H3_DIRECTOR_NODES_MARKER,
         missing.join(", ")
     ))
@@ -1645,7 +1645,7 @@ pub async fn verify_required_h3_native_nodes(
     }
 
     Err(format!(
-        "{}: {}. This node ships inside ComfyUI itself (it is not a MooshieUI custom node), and requires ComfyUI 0.30 or newer. Open Settings and run \"Update ComfyUI\", then try again.",
+        "{}: {}. This node ships inside ComfyUI itself (it is not a MokkaUI custom node), and requires ComfyUI 0.30 or newer. Open Settings and run \"Update ComfyUI\", then try again.",
         MISSING_H3_NATIVE_NODES_MARKER, node_class
     ))
 }
@@ -1695,7 +1695,7 @@ pub async fn verify_required_h3_nodes_for_generation(
                     .get("draft_id")
                     .is_none())
         {
-            return Err("Update the MooshieUI custom nodes on the ComfyUI server and restart it to retain drafts.".into());
+            return Err("Update the MokkaUI custom nodes on the ComfyUI server and restart it to retain drafts.".into());
         }
         let required = match crate::templates::video::acceleration(params) {
             "vdn" => vec!["ApplyVDNH3"],
@@ -1772,7 +1772,7 @@ pub async fn verify_required_mooshie_nodes(
     for attempt in 0..5 {
         missing = missing_mooshie_nodes(http_client, base_url).await?;
         if missing.is_empty() {
-            log::info!("Verified required MooshieUI custom node classes");
+            log::info!("Verified required MokkaUI custom node classes");
             return Ok(());
         }
 
@@ -1787,7 +1787,7 @@ pub async fn verify_required_mooshie_nodes(
 /// Build the user-facing missing-nodes error, including a ComfyUI log excerpt when available.
 pub fn format_missing_mooshie_nodes_error(missing: &[String]) -> String {
     let mut msg = format!(
-        "This ComfyUI server {}: {}. If MooshieUI just installed or updated the nodes, fully stop ComfyUI/python.exe, then start MooshieUI again so the custom nodes load. If this is a remote or external ComfyUI server, install the MooshieUI custom nodes there and restart that server.",
+        "This ComfyUI server {}: {}. If MokkaUI just installed or updated the nodes, fully stop ComfyUI/python.exe, then start MokkaUI again so the custom nodes load. If this is a remote or external ComfyUI server, install the MokkaUI custom nodes there and restart that server.",
         MISSING_MOOSHIE_NODES_MARKER,
         missing.join(", ")
     );

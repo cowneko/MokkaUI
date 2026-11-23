@@ -606,7 +606,7 @@ fn publish(staging: &Path, destination: &Path) -> Result<(), String> {
     let previous = destination.exists();
     if previous {
         std::fs::rename(destination, &backup).map_err(|_| {
-            "Cannot replace the damaged tool; close other MooshieUI instances and retry"
+            "Cannot replace the damaged tool; close other MokkaUI instances and retry"
         })?;
     }
     if std::fs::rename(staging, destination).is_err() {

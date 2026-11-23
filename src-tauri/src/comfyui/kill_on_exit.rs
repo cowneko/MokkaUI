@@ -79,7 +79,7 @@ pub fn assign(process: RawHandle) {
     // for as long as the caller holds the child.
     if unsafe { AssignProcessToJobObject(job as _, process as _) } == 0 {
         log::warn!(
-            "Could not tie a child process to MooshieUI's lifetime; it may outlive a crash: {}",
+            "Could not tie a child process to MokkaUI's lifetime; it may outlive a crash: {}",
             std::io::Error::last_os_error()
         );
     }

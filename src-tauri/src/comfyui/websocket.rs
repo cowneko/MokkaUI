@@ -690,12 +690,12 @@ pub async fn connect_websocket(
                                             };
                                             if updates.is_empty() {
                                                 emit(
-                                                    "mooshie:queue_update",
+                                                    "mokkaui:queue_update",
                                                     serde_json::json!({ "total": 0_u32 }),
                                                 );
                                             } else {
                                                 for payload in updates {
-                                                    emit("mooshie:queue_update", payload);
+                                                    emit("mokkaui:queue_update", payload);
                                                 }
                                             }
                                         } else {
@@ -740,12 +740,12 @@ pub async fn connect_websocket(
                                         };
                                         if updates.is_empty() {
                                             emit(
-                                                "mooshie:queue_update",
+                                                "mokkaui:queue_update",
                                                 serde_json::json!({ "total": 0_u32 }),
                                             );
                                         } else {
                                             for payload in updates {
-                                                emit("mooshie:queue_update", payload);
+                                                emit("mokkaui:queue_update", payload);
                                             }
                                         }
                                     }

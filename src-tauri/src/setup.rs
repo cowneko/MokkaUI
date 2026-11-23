@@ -367,7 +367,7 @@ const UV_LOCK_TIMEOUT_SECS: &str = "14400";
 
 /// Shown under uv's own error when it gave up waiting for a cache lock.
 const UV_LOCK_TIMEOUT_HINT: &str = "uv timed out waiting for a lock on its package cache. Another \
-     process was still using it: an earlier MooshieUI setup still running in the background, or another app \
+     process was still using it: an earlier MokkaUI setup still running in the background, or another app \
      (ComfyUI Desktop, Stability Matrix, Pinokio, ...) installing packages at the same time. Close those, or \
      end any leftover uv process (uv.exe in Task Manager on Windows) or restart the computer, then run setup \
      again. If it keeps happening, set the UV_LOCK_TIMEOUT environment variable to a larger number of seconds.";
@@ -396,8 +396,8 @@ const NETWORK_FAILURE_HINT: &str = "The download from the package server kept fa
 
 /// Shown under a child's own error when the disk filled up.
 const DISK_FULL_HINT: &str = "The disk ran out of space. PyTorch for a GPU takes several GB on the drive \
-     MooshieUI installs to, and uv keeps a copy in its package cache too (on Windows that is \
-     %LOCALAPPDATA%\\uv\\cache on the C: drive, wherever MooshieUI is installed). Free up space on both, \
+     MokkaUI installs to, and uv keeps a copy in its package cache too (on Windows that is \
+     %LOCALAPPDATA%\\uv\\cache on the C: drive, wherever MokkaUI is installed). Free up space on both, \
      then click Retry.";
 
 /// True when `line` is uv (or reqwest underneath it) reporting a download that
@@ -3397,7 +3397,7 @@ pub async fn run_setup(
     verify_quant_stack(&app, &base).await;
 
     // 7. Custom nodes
-    emit(&app, "nodes", "Installing MooshieUI custom nodes...", 85);
+    emit(&app, "nodes", "Installing MokkaUI custom nodes...", 85);
     step_install_custom_nodes(&base)?;
 
     // 7b. Optional attention backend (NVIDIA only)
@@ -3521,7 +3521,7 @@ pub async fn update_comfyui(
         }
         let configured = std::fs::canonicalize(&config.comfyui_path)?;
         if configured != std::fs::canonicalize(&comfyui_dir)? {
-            return Err("This updater manages the ComfyUI installation in MooshieUI's data folder. Update the configured external installation separately.".into());
+            return Err("This updater manages the ComfyUI installation in MokkaUI's data folder. Update the configured external installation separately.".into());
         }
     }
 
@@ -3596,7 +3596,7 @@ pub async fn update_comfyui(
     verify_quant_stack(&app, &base).await;
 
     // 4. Redeploy bundled MooshieUI custom nodes (content-hash gated internally).
-    emit(&app, "nodes", "Redeploying MooshieUI custom nodes...", 85);
+    emit(&app, "nodes", "Redeploying MokkaUI custom nodes...", 85);
     let comfy_str = comfyui_dir.to_string_lossy().to_string();
     crate::comfyui::nodes::ensure_mooshie_nodes(&comfy_str)?;
     step_install_custom_nodes(&base)?;

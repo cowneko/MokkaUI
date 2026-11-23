@@ -365,7 +365,7 @@ impl PromptQueue {
         self.music_prompts.read().unwrap().get(prompt_id) == Some(&"3d")
     }
 
-    /// The `kind` of a `mooshie:queue_update`: "music", "3d" or "generation".
+    /// The `kind` of a `mokkaui:queue_update`: "music", "3d" or "generation".
     pub fn kind(&self, prompt_id: &str) -> &'static str {
         self.music_prompts
             .read()
@@ -1473,14 +1473,14 @@ impl AppState {
         let total = queue.len();
         if total == 0 {
             self.broadcast(
-                "mooshie:queue_update",
+                "mokkaui:queue_update",
                 serde_json::json!({ "total": 0_u32 }),
             );
             return;
         }
         for (pos, (prompt_id, _owner)) in queue.iter().enumerate() {
             self.broadcast(
-                "mooshie:queue_update",
+                "mokkaui:queue_update",
                 serde_json::json!({
                     "prompt_id": prompt_id,
                     "position": pos,

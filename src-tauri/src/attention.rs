@@ -209,7 +209,7 @@ fn select_sage2_windows_wheel(build: &TorchBuild) -> Result<ResolvedWheel, Strin
     best.map(|(_, w)| w.resolved()).ok_or_else(|| {
         format!(
             "no pinned prebuilt SageAttention v2 wheel matches this environment ({}). \
-             MooshieUI only installs verified wheels for CUDA 12.4-13.0 builds of \
+             MokkaUI only installs verified wheels for CUDA 12.4-13.0 builds of \
              torch 2.5-2.9 and torch 2.10 or newer; install SageAttention manually from \
              https://github.com/woct0rdho/SageAttention/releases if you need another build",
             build.describe()

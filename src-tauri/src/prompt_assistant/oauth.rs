@@ -351,7 +351,7 @@ fn done_page(provider: &str) -> String {
 <body style=\"font-family:system-ui;background:#171717;color:#e5e5e5;display:flex;\
 align-items:center;justify-content:center;height:100vh;margin:0\">\
 <div style=\"text-align:center\"><h1 style=\"font-weight:500\">Signed in to {provider}</h1>\
-<p>You can close this tab and go back to MooshieUI.</p></div>"
+<p>You can close this tab and go back to MokkaUI.</p></div>"
     )
 }
 
@@ -359,7 +359,7 @@ const FAILED_PAGE: &str = "<!doctype html><meta charset=utf-8><title>Sign-in fai
 <body style=\"font-family:system-ui;background:#171717;color:#e5e5e5;display:flex;\
 align-items:center;justify-content:center;height:100vh;margin:0\">\
 <div style=\"text-align:center\"><h1 style=\"font-weight:500\">Sign-in failed</h1>\
-<p>Close this tab and try again, or paste an API key in MooshieUI instead.</p></div>";
+<p>Close this tab and try again, or paste an API key in MokkaUI instead.</p></div>";
 
 // ---------------------------------------------------------------------------
 // Nous Portal
@@ -766,7 +766,7 @@ async fn register_client(
     })?;
 
     let mut body = serde_json::json!({
-        "client_name": "MooshieUI",
+        "client_name": "MokkaUI",
         "client_uri": "https://github.com/Mooshieblob1/MooshieUI",
         "application_type": "native",
         "redirect_uris": [redirect_uri],
