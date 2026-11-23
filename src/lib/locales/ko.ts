@@ -2942,11 +2942,6 @@ const ko: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "Ko-fi로 후원하기",
-  "settings.about.sponsors_button": "GitHub에서 후원하기",
-  "settings.about.support_title": "MokkaUI 후원하기",
-  "settings.about.support_desc": "MokkaUI는 무료이며 앞으로도 무료입니다. 도움이 되었다면 후원으로 호스팅과 빌드 비용을 함께해 주세요. 전적으로 선택 사항입니다.",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3385,7 +3380,7 @@ const ko: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "이 컴퓨터에서 localhost 또는 IP 주소로 MokkaUI를 열면 로그인 없이 관리자가 됩니다. 이 컴퓨터의 리버스 프록시가 다른 사람의 요청을 MokkaUI로 전달한다면 꺼 두세요. 그러면 본인을 포함한 모두가 계정으로 로그인합니다. 관리자 계정이 생길 때까지는 켜진 상태로 유지됩니다.",
   "settings.lan.warning": "경고: LAN 액세스를 활성화하면 로컬 네트워크에 UI가 노출됩니다. 인증을 요구하려면 최소 하나의 계정을 추가하세요.",
   "settings.lan.access_at": "다른 기기에서 액세스:",
-  "settings.lan.hostname_hint": "mooshieui.local 주소가 열리지 않는 기기(일부 Android 휴대폰 및 Windows PC)에서는 IP 주소를 사용하세요.",
+  "settings.lan.hostname_hint": "mokkaui.local 주소가 열리지 않는 기기(일부 Android 휴대폰 및 Windows PC)에서는 IP 주소를 사용하세요.",
   "settings.lan.restart_to_share": "다른 기기에서 이 주소로 접속하려면 MokkaUI를 다시 시작하세요.",
   "settings.lan.firewall_allowed": "Windows 방화벽이 홈 네트워크의 다른 기기 연결을 허용하고 있습니다.",
   "settings.lan.firewall_missing": "Windows 방화벽이 다른 기기의 연결을 막을 수 있습니다.",
@@ -4289,7 +4284,7 @@ const ko: Record<string, string> = {
 
   "settings.about.log_files_filter": "로그 파일",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 

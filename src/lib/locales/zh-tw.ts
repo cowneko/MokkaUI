@@ -2942,11 +2942,6 @@ const zhTw: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "在 Ko-fi 上支持",
-  "settings.about.sponsors_button": "在 GitHub 上贊助",
-  "settings.about.support_title": "支持 MokkaUI",
-  "settings.about.support_desc": "MokkaUI 免費且永遠免費。如果它對你有幫助，小額贊助可以分擔主機與建置費用。完全自願。",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3385,7 +3380,7 @@ const zhTw: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "在這台電腦上透過 localhost 或 IP 位址開啟 MokkaUI 時，不需登入即為管理員。如果這台電腦上的反向代理會把其他人的請求轉送給 MokkaUI，請關閉此選項，屆時包括你在內的所有人都需以帳號登入。在建立管理員帳號之前會保持開啟。",
   "settings.lan.warning": "警告：啟用區域網路存取會在本地網路暴露介面。請至少新增一個帳戶以要求驗證。",
   "settings.lan.access_at": "其他裝置存取位址：",
-  "settings.lan.hostname_hint": "若裝置無法開啟 mooshieui.local 位址（部分 Android 手機和 Windows 電腦），請改用 IP 位址。",
+  "settings.lan.hostname_hint": "若裝置無法開啟 mokkaui.local 位址（部分 Android 手機和 Windows 電腦），請改用 IP 位址。",
   "settings.lan.restart_to_share": "請重新啟動 MokkaUI，讓其他裝置可以連線到這些位址。",
   "settings.lan.firewall_allowed": "Windows 防火牆允許家用網路中的其他裝置連線。",
   "settings.lan.firewall_missing": "Windows 防火牆可能會阻止其他裝置連線。",
@@ -4289,7 +4284,7 @@ const zhTw: Record<string, string> = {
 
   "settings.about.log_files_filter": "記錄檔",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 

@@ -2942,11 +2942,6 @@ const ru: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "Поддержать на Ko-fi",
-  "settings.about.sponsors_button": "Спонсировать на GitHub",
-  "settings.about.support_title": "Поддержать MokkaUI",
-  "settings.about.support_desc": "MokkaUI бесплатен и останется таким. Если он вам полезен, донат помогает покрыть хостинг и сборки. Полностью по желанию.",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3385,7 +3380,7 @@ const ru: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "Если открыть MokkaUI на этом компьютере через localhost или IP-адрес, вы становитесь администратором без входа. Отключите, если обратный прокси на этом компьютере перенаправляет в MokkaUI запросы других людей; тогда все, включая вас, входят под учётной записью. Остаётся включённым, пока не создана учётная запись администратора.",
   "settings.lan.warning": "Внимание: включение LAN открывает интерфейс в локальной сети. Добавьте хотя бы одну учётную запись для обязательной аутентификации.",
   "settings.lan.access_at": "Доступ с других устройств по адресу:",
-  "settings.lan.hostname_hint": "Если устройство не открывает адрес mooshieui.local (некоторые телефоны на Android и ПК с Windows), используйте IP-адрес.",
+  "settings.lan.hostname_hint": "Если устройство не открывает адрес mokkaui.local (некоторые телефоны на Android и ПК с Windows), используйте IP-адрес.",
   "settings.lan.restart_to_share": "Перезапустите MokkaUI, чтобы эти адреса стали доступны с других устройств.",
   "settings.lan.firewall_allowed": "Брандмауэр Windows разрешает подключение другим устройствам в домашней сети.",
   "settings.lan.firewall_missing": "Брандмауэр Windows может мешать подключению других устройств.",
@@ -4289,7 +4284,7 @@ const ru: Record<string, string> = {
 
   "settings.about.log_files_filter": "Файлы журналов",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 

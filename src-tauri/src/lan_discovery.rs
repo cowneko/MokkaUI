@@ -1,6 +1,6 @@
 //! How other devices on the network reach the embedded web server: the PC's
 //! LAN addresses, and (desktop builds) an mDNS name so people can type
-//! `mooshieui.local` instead of an IP.
+//! `mokkaui.local` instead of an IP.
 //!
 //! `.local` is the only suffix every OS resolves over multicast DNS with no
 //! router or DNS server setup, so a name like `mooshie.ui` cannot work locally.
@@ -10,8 +10,15 @@
 use std::net::{IpAddr, Ipv4Addr, UdpSocket};
 use std::sync::Mutex;
 
-/// mDNS host label, advertised as `mooshieui.local`.
-pub const MDNS_HOST_LABEL: &str = "mooshieui";
+/// mDNS host label, advertised as `mokkaui.local`.
+///
+/// Renaming this is a breaking change for anyone who bookmarked
+/// `http://mooshieui.local:<port>` from a phone: the old name stops answering
+/// on release. It ships in the same version as the DNS-SD instance name below,
+/// the UPnP description and the firewall rule name, so no device ever sees two
+/// halves of the identity at once. The LAN IP URL in Settings keeps working and
+/// is the fallback for a stale bookmark.
+pub const MDNS_HOST_LABEL: &str = "mokkaui";
 
 /// What the running web server is bound to, recorded by `webserver::start_server`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -27,7 +34,7 @@ pub struct ServerEndpoint {
 struct LanState {
     endpoint: Option<ServerEndpoint>,
     /// The advertised mDNS host name without the trailing dot, e.g.
-    /// `mooshieui.local`, or `mooshieui-2.local` after a name conflict.
+    /// `mokkaui.local`, or `mokkaui-2.local` after a name conflict.
     hostname: Option<String>,
     #[cfg(feature = "desktop")]
     daemon: Option<mdns_sd::ServiceDaemon>,
@@ -193,7 +200,7 @@ fn advertise(endpoint: ServerEndpoint) {
     };
     let info = match ServiceInfo::new(
         service_type,
-        "MooshieUI",
+        "MokkaUI",
         &host_fqdn,
         addrs.as_slice(),
         endpoint.port,
@@ -208,7 +215,7 @@ fn advertise(endpoint: ServerEndpoint) {
     };
 
     // Watch for a name conflict (another PC already answering for
-    // mooshieui.local); the daemon renames ours to mooshieui-2.local.
+    // mokkaui.local); the daemon renames ours to mokkaui-2.local.
     if let Ok(events) = daemon.monitor() {
         std::thread::Builder::new()
             .name("mdns-monitor".into())
@@ -327,8 +334,8 @@ mod tests {
             lan: true,
         };
         assert_eq!(
-            url_for("mooshieui.local", &ep),
-            "http://mooshieui.local:3200"
+            url_for("mokkaui.local", &ep),
+            "http://mokkaui.local:3200"
         );
         let tls = ServerEndpoint { https: true, ..ep };
         assert_eq!(url_for("192.168.1.2", &tls), "https://192.168.1.2:3200");

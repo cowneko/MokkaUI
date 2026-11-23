@@ -6,7 +6,7 @@
   import { locale } from "../../stores/locale.svelte.js";
   import { whatsNew } from "../../stores/whatsNew.svelte.js";
 
-  const CHANGELOG_URL = "https://github.com/Mooshieblob1/MooshieUI/blob/main/CHANGELOG.md";
+  const CHANGELOG_URL = "https://github.com/cowneko/MokkaUI/blob/main/CHANGELOG.md";
   const appVersion = __APP_VERSION__ ?? "dev";
 
   function renderMarkdown(markdown: string): string {

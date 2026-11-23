@@ -2942,11 +2942,6 @@ const pt: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "Apoiar no Ko-fi",
-  "settings.about.sponsors_button": "Patrocinar no GitHub",
-  "settings.about.support_title": "Apoie o MokkaUI",
-  "settings.about.support_desc": "O MokkaUI é gratuito e sempre será. Se ele te ajuda, uma gorjeta cobre os custos de hospedagem e build. Totalmente opcional.",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3386,7 +3381,7 @@ const pt: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "Abrir o MokkaUI neste computador por localhost ou por um endereço IP torna você administrador sem entrar. Desative se um proxy reverso neste computador encaminhar ao MokkaUI solicitações de outras pessoas; assim todos, inclusive você, entram com uma conta. Permanece ativado até existir uma conta de administrador.",
   "settings.lan.warning": "Aviso: ativar o acesso LAN expõe a interface na rede local. Adicione pelo menos uma conta para exigir autenticação.",
   "settings.lan.access_at": "Acesse de outros dispositivos em:",
-  "settings.lan.hostname_hint": "Se um dispositivo não conseguir abrir o endereço mooshieui.local (alguns celulares Android e PCs com Windows), use o endereço IP.",
+  "settings.lan.hostname_hint": "Se um dispositivo não conseguir abrir o endereço mokkaui.local (alguns celulares Android e PCs com Windows), use o endereço IP.",
   "settings.lan.restart_to_share": "Reinicie o MokkaUI para que outros dispositivos possam acessar estes endereços.",
   "settings.lan.firewall_allowed": "O Firewall do Windows permite que outros dispositivos da sua rede doméstica se conectem.",
   "settings.lan.firewall_missing": "O Firewall do Windows pode impedir que outros dispositivos se conectem.",
@@ -4290,7 +4285,7 @@ const pt: Record<string, string> = {
 
   "settings.about.log_files_filter": "Arquivos de log",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 

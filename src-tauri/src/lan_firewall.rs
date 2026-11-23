@@ -40,7 +40,14 @@ pub struct FirewallStatus {
 
 /// Display name of the allow rule this module manages.
 #[cfg_attr(not(any(windows, test)), allow(dead_code))]
-const RULE_NAME: &str = "MooshieUI LAN access";
+const RULE_NAME: &str = "MokkaUI LAN access";
+
+/// Rules written by releases before the rename. Rules are found by display
+/// name, so a renamed rule that is never deleted stays open forever: the
+/// allow path removes these too, and `disable` does not have to know about
+/// them because they are gone the first time the user re-enables LAN access.
+#[cfg_attr(not(any(windows, test)), allow(dead_code))]
+const LEGACY_RULE_NAMES: &[&str] = &["MooshieUI LAN access"];
 
 /// `ERROR_CANCELLED`: the launcher's exit code when the UAC prompt is declined.
 #[cfg_attr(not(any(windows, test)), allow(dead_code))]
@@ -216,12 +223,16 @@ fn allow_script(exe: &std::path::Path) -> String {
          try {{\n\
          {rules} | Where-Object {{ $_.Action -eq 'Block' -and ([int]$_.Profile -eq 0 -or ([int]$_.Profile -band 3)) }} | Remove-NetFirewallRule -ErrorAction SilentlyContinue\n\
          Get-NetFirewallRule -DisplayName '{name}' -ErrorAction SilentlyContinue | Remove-NetFirewallRule\n\
-         New-NetFirewallRule -DisplayName '{name}' -Description 'Lets devices on your home network open MooshieUI in LAN mode.' \
+         {legacy}         New-NetFirewallRule -DisplayName '{name}' -Description 'Lets devices on your home network open MokkaUI in LAN mode.' \
          -Direction Inbound -Action Allow -Program '{exe}' -Profile Private,Domain | Out-Null\n\
          exit 0\n\
          }} catch {{ exit 1 }}\n",
         rules = exe_rules_pipeline(exe),
         name = RULE_NAME,
+        legacy = LEGACY_RULE_NAMES
+            .iter()
+            .map(|n| format!("Get-NetFirewallRule -DisplayName '{n}' -ErrorAction SilentlyContinue | Remove-NetFirewallRule\n", n = n))
+            .collect::<String>(),
         exe = ps_quote(exe),
     )
 }
@@ -305,8 +316,8 @@ mod tests {
 
     #[test]
     fn exe_path_quotes_are_doubled_in_every_script() {
-        let exe = Path::new(r"C:\Users\Cole's PC\MooshieUI\mooshieui.exe");
-        let quoted = r"C:\Users\Cole''s PC\MooshieUI\mooshieui.exe";
+        let exe = Path::new(r"C:\Users\Cole's PC\MokkaUI\mokkaui.exe");
+        let quoted = r"C:\Users\Cole''s PC\MokkaUI\mokkaui.exe";
         assert!(status_script(exe).contains(quoted));
         let allow = allow_script(exe);
         assert!(allow.contains(&format!("-Program '{quoted}'")));

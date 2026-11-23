@@ -2967,11 +2967,6 @@ const fr: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "Soutenir sur Ko-fi",
-  "settings.about.sponsors_button": "Sponsoriser sur GitHub",
-  "settings.about.support_title": "Soutenir MokkaUI",
-  "settings.about.support_desc": "MokkaUI est gratuit et le restera. S'il vous est utile, un pourboire aide à couvrir l'hébergement et les builds. Entièrement facultatif.",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3411,7 +3406,7 @@ const fr: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "Ouvrir MokkaUI sur cet ordinateur via localhost ou une adresse IP vous donne les droits d'administrateur sans vous connecter. Désactivez cette option si un proxy inverse sur cet ordinateur transmet à MokkaUI les requêtes d'autres personnes ; tout le monde, vous compris, se connecte alors avec un compte. Reste activé tant qu'aucun compte administrateur n'existe.",
   "settings.lan.warning": "Attention : activer l'accès LAN expose l'interface sur votre réseau local. Ajoutez au moins un compte pour exiger une authentification.",
   "settings.lan.access_at": "Accès depuis d'autres appareils à :",
-  "settings.lan.hostname_hint": "Si un appareil n'arrive pas à ouvrir l'adresse mooshieui.local (certains téléphones Android et PC Windows), utilisez plutôt l'adresse IP.",
+  "settings.lan.hostname_hint": "Si un appareil n'arrive pas à ouvrir l'adresse mokkaui.local (certains téléphones Android et PC Windows), utilisez plutôt l'adresse IP.",
   "settings.lan.restart_to_share": "Redémarrez MokkaUI pour que les autres appareils puissent atteindre ces adresses.",
   "settings.lan.firewall_allowed": "Le pare-feu Windows autorise les autres appareils de votre réseau domestique à se connecter.",
   "settings.lan.firewall_missing": "Le pare-feu Windows risque d'empêcher les autres appareils de se connecter.",
@@ -4315,7 +4310,7 @@ const fr: Record<string, string> = {
 
   "settings.about.log_files_filter": "Fichiers journaux",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 

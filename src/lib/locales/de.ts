@@ -2963,11 +2963,6 @@ const de: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "Auf Ko-fi unterstützen",
-  "settings.about.sponsors_button": "Auf GitHub sponsern",
-  "settings.about.support_title": "MokkaUI unterstützen",
-  "settings.about.support_desc": "MokkaUI ist kostenlos und bleibt es auch. Wenn es dir hilft, deckt ein Trinkgeld Hosting- und Build-Kosten. Völlig freiwillig.",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3407,7 +3402,7 @@ const de: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "Wenn du MokkaUI auf diesem Computer über localhost oder eine IP-Adresse öffnest, bist du ohne Anmeldung Admin. Deaktiviere dies, wenn ein Reverse-Proxy auf diesem Computer Anfragen anderer Personen an MokkaUI weiterleitet; dann melden sich alle, auch du, mit einem Konto an. Bleibt aktiv, bis ein Admin-Konto existiert.",
   "settings.lan.warning": "Warnung: Der LAN-Zugriff macht die Oberfläche in Ihrem lokalen Netzwerk erreichbar. Fügen Sie mindestens ein Konto hinzu, um eine Anmeldung zu verlangen.",
   "settings.lan.access_at": "Zugriff von anderen Geräten unter:",
-  "settings.lan.hostname_hint": "Wenn ein Gerät die Adresse mooshieui.local nicht öffnen kann (manche Android-Handys und Windows-PCs), nutze stattdessen die IP-Adresse.",
+  "settings.lan.hostname_hint": "Wenn ein Gerät die Adresse mokkaui.local nicht öffnen kann (manche Android-Handys und Windows-PCs), nutze stattdessen die IP-Adresse.",
   "settings.lan.restart_to_share": "Starte MokkaUI neu, damit andere Geräte diese Adressen erreichen können.",
   "settings.lan.firewall_allowed": "Die Windows-Firewall lässt andere Geräte in deinem Heimnetz verbinden.",
   "settings.lan.firewall_missing": "Die Windows-Firewall könnte andere Geräte an der Verbindung hindern.",
@@ -4292,7 +4287,7 @@ const de: Record<string, string> = {
 
   "settings.about.log_files_filter": "Protokolldateien",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 

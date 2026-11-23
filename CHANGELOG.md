@@ -2,6 +2,14 @@
 
 ## What's New in v1.0.0
 
+### Reachable on the network
+- **`mokkaui.local`, not the old name**: LAN mode advertises the new mDNS host label, service instance name, UPnP device description and Windows firewall rule name. **Breaking** — a phone bookmark of `http://mooshieui.local:<port>` stops answering. Type `http://mokkaui.local:<port>` instead, or use the LAN address Settings lists under the name, which never depends on a name resolving at all. The stale Windows allow rule is removed the next time LAN access is switched on, instead of staying open under its old display name forever.
+
+### Nothing in the app points at the project this was forked from
+- **Donation buttons removed** from Settings → Help & Updates and from the About dialog. They opened the upstream author's Ko-fi and GitHub Sponsors pages; this repository also dropped its funding file, sponsor badges and "where the money goes" section, so no route sends a contribution somewhere else.
+- **One external link removed, one repointed**: About no longer advertises a third party's hosted instance of the upstream app, and its source button plus the **full changelog** link now open this project instead of upstream's.
+- **Content-Security-Policy trimmed**: the policy allowed a connection to an upstream reporting host that no line of code ever called. Live services (artist gallery index and images, character search) are unchanged.
+
 ### MokkaUI
 - **MokkaUI's own version line**: first release under the MokkaUI name, numbered independently of upstream. Own app id (`com.mokkaui.desktop`), own data folder, window class and process names, so it installs and runs side by side with the app it was forked from.
 - **Rebrand pass**: product name, locales, docs, CI workflows, package metadata and ComfyUI node display names all speak MokkaUI.

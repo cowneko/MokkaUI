@@ -2983,11 +2983,6 @@ const zh: Record<string, string> = {
   "settings.about.modal_title": "About MokkaUI",
   "settings.about.modal_tagline": "A friendly desktop interface for AI image generation.",
   "settings.about.github_button": "GitHub Repository",
-  "settings.about.gpu_garden_button": "gpu.garden",
-  "settings.about.kofi_button": "在 Ko-fi 上支持",
-  "settings.about.sponsors_button": "在 GitHub 上赞助",
-  "settings.about.support_title": "支持 MokkaUI",
-  "settings.about.support_desc": "MokkaUI 免费且永远免费。如果它对你有帮助，小额赞助可以分担主机和构建费用。完全自愿。",
   "settings.about.report_issue_button": "Report an Issue",
   "settings.about.report_title": "Report an Issue",
   "settings.about.report_name_label": "Your Name",
@@ -3426,7 +3421,7 @@ const zh: Record<string, string> = {
   "settings.trust_localhost.enable_desc": "在这台电脑上通过 localhost 或 IP 地址打开 MokkaUI 时，无需登录即为管理员。如果这台电脑上的反向代理会把其他人的请求转发给 MokkaUI，请关闭此选项，届时包括你在内的所有人都需用账号登录。在创建管理员账号之前会保持开启。",
   "settings.lan.warning": "警告：启用局域网访问会在本地网络暴露界面。请至少添加一个账户以要求身份验证。",
   "settings.lan.access_at": "其他设备访问地址：",
-  "settings.lan.hostname_hint": "如果设备无法打开 mooshieui.local 地址（部分 Android 手机和 Windows 电脑），请改用 IP 地址。",
+  "settings.lan.hostname_hint": "如果设备无法打开 mokkaui.local 地址（部分 Android 手机和 Windows 电脑），请改用 IP 地址。",
   "settings.lan.restart_to_share": "请重启 MokkaUI，让其他设备可以访问这些地址。",
   "settings.lan.firewall_allowed": "Windows 防火墙允许家庭网络中的其他设备连接。",
   "settings.lan.firewall_missing": "Windows 防火墙可能会阻止其他设备连接。",
@@ -4290,7 +4285,7 @@ const zh: Record<string, string> = {
 
   "settings.about.log_files_filter": "日志文件",
 
-  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mooshie",
+  "settings.connection.webhook_url_placeholder": "https://example.com/webhooks/mokkaui",
 
   "modelhub.direct.url_placeholder": "https://.../model.safetensors",
 
