@@ -1,6 +1,6 @@
 name: AUR package check
 
-# Builds the mooshieui-bin PKGBUILD against the latest release in an Arch
+# Builds the mokkaui-bin PKGBUILD against the latest release in an Arch
 # container whenever the template or its script changes, so a broken package
 # is caught before a release tries to publish it.
 on:
@@ -23,7 +23,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Build mooshieui-bin for the latest release
+      - name: Build mokkaui-bin for the latest release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

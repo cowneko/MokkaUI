@@ -1,87 +1,107 @@
 # Installing on Linux
 
-MooshieUI ships for x86_64 Linux as an AppImage, a `.deb` and an `.rpm` on every
-[release](https://github.com/Mooshieblob1/MooshieUI/releases). You can install
-it through your package manager instead, so it updates with the rest of your
-system.
+MokkaUI ships for x86_64 Linux as an AppImage, a `.deb` and an `.rpm` on every
+[release](https://github.com/cowneko/MokkaUI/releases).
 
 | Distro | Install | Update |
 | --- | --- | --- |
-| Arch, Manjaro, EndeavourOS | [coming soon](#arch-aur): `yay -S mooshieui-bin` | `yay -Syu` |
-| Debian, Ubuntu, Mint, Pop!_OS | [add the apt repo](#debian-and-ubuntu), then `sudo apt install mooshieui` | `sudo apt update && sudo apt upgrade` |
-| Fedora, RHEL clones | [add the rpm repo](#fedora), then `sudo dnf install mooshieui` | `sudo dnf upgrade --refresh` |
+| Arch, Manjaro, EndeavourOS | [AUR](#arch-aur): `yay -S mokkaui-bin` | `yay -Syu` |
+| Debian, Ubuntu, Mint, Pop!_OS | [the release `.deb`](#debian-and-ubuntu) | install a newer `.deb`, or use the in-app updater |
+| Fedora, RHEL clones | [the release `.rpm`](#fedora) | install a newer `.rpm`, or use the in-app updater |
 | Anything else | download the `.AppImage`, `chmod +x` it and run it | in-app updater |
 
-The apt and dnf repos carry every release after v2.3.46. Until the AUR
-package is published, Arch users can use the AppImage.
+This fork does not run a package-repository server, so there is no apt or dnf
+URL to add: you install the file from the releases page. The release job still
+builds signed repository metadata (`apt-InRelease`, `rpm-repomd.xml.asc` and
+friends) for anyone who wants to host one — see
+[`packaging/linux/README.md`](../packaging/linux/README.md).
 
-When a package manager owns the install, MooshieUI's update banner shows the
-command above instead of downloading the update itself.
+When a package manager owns the install, MokkaUI's update banner shows your
+system's update command instead of downloading the update itself.
 
 All routes install only the app. On first launch the setup wizard downloads
-Python, PyTorch and ComfyUI into your data folder (`~/.local/share/com.mooshieui.desktop`
-unless you pick another), the same as on Windows. Removing the package leaves
-that folder and your models in place. Setup needs `git`; the packages pull it
-in.
+Python, PyTorch and ComfyUI into your data folder
+(`~/.local/share/com.mokkaui.desktop` unless you pick another), the same as on
+Windows. Removing the package leaves that folder and your models in place.
+Setup needs `git`; the packages pull it in.
 
 ## Arch (AUR)
 
-Coming soon: new AUR accounts are paused for now, so the package isn't
-published yet. Once it is, [`mooshieui-bin`](https://aur.archlinux.org/packages/mooshieui-bin)
-repackages the release `.deb`, is updated automatically on every release, and
-installs with an AUR helper:
+The recipe is
+[`packaging/aur/mokkaui-bin/PKGBUILD.in`](../packaging/aur/mokkaui-bin/PKGBUILD.in)
+in this repository. The release job renders it with the new version and hash and
+pushes it to the AUR, so what an AUR helper fetches is generated from that
+template:
 
 ```bash
-yay -S mooshieui-bin    # or: paru -S mooshieui-bin
+yay -S mokkaui-bin    # or: paru -S mokkaui-bin
 ```
+
+`mokkaui-bin` repackages the release `.deb`. It deliberately neither provides
+nor conflicts with `mooshieui` or `mooshie-ui`: those names belong to the
+upstream project this fork came from, and claiming them would let pacman swap or
+remove an unrelated upstream install that ships different files.
+
+If your helper answers that no such package exists, the AUR registration has not
+happened yet — the name has to be registered on aur.archlinux.org once before
+the release job can push to it. Use the AppImage in the meantime.
 
 ## Debian and Ubuntu
 
-Ubuntu 22.04 or newer, Debian 12 or newer (the app needs WebKitGTK 4.1). Add the
-signing key and the repo once:
+Ubuntu 22.04 or newer, Debian 12 or newer (the app needs WebKitGTK 4.1). Pick
+the `.deb` of the release you want and install it by path, so apt resolves the
+dependencies from the mirrors you already configured:
 
 ```bash
-sudo install -d -m 0755 /etc/apt/keyrings
-curl -fsSL https://mooshieui.com/mooshieui.asc | sudo tee /etc/apt/keyrings/mooshieui.asc > /dev/null
-sudo tee /etc/apt/sources.list.d/mooshieui.sources > /dev/null <<'SOURCES'
-Types: deb
-URIs: https://mooshieui.com/apt
-Suites: stable
-Components: main
-Architectures: amd64
-Signed-By: /etc/apt/keyrings/mooshieui.asc
-SOURCES
-sudo apt update
-sudo apt install mooshieui
+sudo apt install ./MokkaUI_<version>_amd64.deb
 ```
+
+To update, install the newer `.deb`. To remove it:
+
+```bash
+sudo apt remove "$(dpkg -f MokkaUI_<version>_amd64.deb Package)"
+```
+
+That subshell is not decoration: the bundler derives the deb package name from
+the product name, so read it off the file instead of guessing at its spelling.
 
 ## Fedora
 
 ```bash
-sudo curl -fsSLo /etc/yum.repos.d/mooshieui.repo https://mooshieui.com/rpm/mooshieui.repo
-sudo dnf install mooshieui
+sudo dnf install ./MokkaUI-<version>-1.x86_64.rpm
 ```
 
-dnf asks you to accept the MooshieUI signing key the first time.
+To remove it:
 
-## Verifying the key
+```bash
+sudo dnf remove "$(rpm -qp --qf '%{NAME}' MokkaUI-<version>-1.x86_64.rpm)"
+```
 
-The repo metadata is signed with the key at
-[mooshieui.com/mooshieui.asc](https://mooshieui.com/mooshieui.asc), which is the
-same file as [`packaging/linux/mooshieui.asc`](../packaging/linux/mooshieui.asc)
-in this repository. Check its fingerprint with
-`gpg --show-keys /etc/apt/keyrings/mooshieui.asc`; it should be
-`1F82 986C 6CC1 D890 5E48  FE0D FF29 34B6 0954 B5D7`
-(MooshieUI Packages <blob@mooshieblob.com>). The packages themselves are
-the unmodified release files; the signed metadata carries their SHA-256.
+## Signatures, and which key is ours
+
+Automatic updates are verified against the updater public key compiled into the
+app (`bundle.createUpdaterArtifacts` and its `pubkey` in
+[`src-tauri/tauri.conf.json`](../src-tauri/tauri.conf.json)); every release
+carries the matching `.sig` asset.
+
+The repository-metadata signing key belongs to this fork as well, and its
+fingerprint is deliberately not pinned in the tree: it is whatever key the
+`REPO_GPG_PRIVATE_KEY` repository secret holds, and the release job prints it in
+its log. Publish and distribute the public half as described in
+[`packaging/linux/README.md`](../packaging/linux/README.md).
+
+One thing worth checking if you find instructions somewhere else: the key
+`1F82 986C 6CC1 D890 5E48  FE0D FF29 34B6 0954 B5D7`, uid
+`MooshieUI Packages <blob@mooshieblob.com>`, is the **upstream** project's key.
+Nothing published from this repository is signed by it, so metadata signed by
+that key is not this fork.
 
 ## Uninstalling
 
-Remove the package (`sudo apt remove mooshie-ui`, `sudo dnf remove mooshie-ui`,
-`yay -R mooshieui-bin`), then delete the repo file
-(`/etc/apt/sources.list.d/mooshieui.sources` or `/etc/yum.repos.d/mooshieui.repo`)
-and key. Delete `~/.local/share/com.mooshieui.desktop` too if you want the
-runtime and models gone.
+Remove the package (`sudo apt remove …` and `sudo dnf remove …` above, or
+`yay -R mokkaui-bin`), plus any repository file and key you added by hand.
+Delete `~/.local/share/com.mokkaui.desktop` too if you want the runtime and
+models gone.
 
 ## Flatpak
 

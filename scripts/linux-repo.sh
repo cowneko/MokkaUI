@@ -5,11 +5,12 @@
 #
 # Writes flat release assets to <out-dir>: apt-InRelease, apt-Release,
 # apt-Release.gpg, apt-Packages, apt-Packages.gz, rpm-repomd.xml,
-# rpm-repomd.xml.asc and the other rpm-* repodata files. mooshieui.com serves
-# them through redirects to releases/latest/download (mooshieui-site
-# static/_redirects), and points package downloads at this tag's assets:
-#   https://mooshieui.com/apt  -> deb  [signed-by mooshieui.asc]
-#   https://mooshieui.com/rpm  -> rpm  (repo_gpgcheck)
+# rpm-repomd.xml.asc and the other rpm-* repodata files. They are published as
+# release assets of this repository; nothing here runs a repo server, and this
+# fork has no short domain in front of them. Flat assets are not a repo
+# distribution: to let apt or dnf consume them, lay them out as
+# dists/stable/… and repodata/ on any static host, as packaging/linux/README.md
+# describes. The repodata baseurl is built from MOOSHIEUI_GITHUB_REPO.
 #
 # Signs with the key MOOSHIEUI_REPO_KEY (a fingerprint) from the default
 # GNUPGHOME; MOOSHIEUI_REPO_PASSPHRASE_FILE, when set, unlocks it. The packages
@@ -24,7 +25,9 @@ deb="${2:?}"
 rpm="${3:?}"
 out="${4:?}"
 key="${MOOSHIEUI_REPO_KEY:?set MOOSHIEUI_REPO_KEY to the signing key fingerprint}"
-repo="${MOOSHIEUI_GITHUB_REPO:-Mooshieblob1/MooshieUI}"
+# The default has to be this fork: the value is written into the repodata,
+# so an unset variable would publish baseurls that download upstream binaries.
+repo="${MOOSHIEUI_GITHUB_REPO:-cowneko/MokkaUI}"
 
 gpg_sign=(gpg --batch --yes --local-user "$key")
 if [ -n "${MOOSHIEUI_REPO_PASSPHRASE_FILE:-}" ]; then
@@ -47,13 +50,13 @@ gzip -9kn "$dist/main/binary-amd64/Packages"
 (
   cd "$dist"
   apt-ftparchive \
-    -o APT::FTPArchive::Release::Origin=MooshieUI \
-    -o APT::FTPArchive::Release::Label=MooshieUI \
+    -o APT::FTPArchive::Release::Origin=MokkaUI \
+    -o APT::FTPArchive::Release::Label=MokkaUI \
     -o APT::FTPArchive::Release::Suite=stable \
     -o APT::FTPArchive::Release::Codename=stable \
     -o APT::FTPArchive::Release::Architectures=amd64 \
     -o APT::FTPArchive::Release::Components=main \
-    -o "APT::FTPArchive::Release::Description=MooshieUI ${tag}" \
+    -o "APT::FTPArchive::Release::Description=MokkaUI ${tag}" \
     release . > "$work/Release"
 )
 mv "$work/Release" "$dist/Release"

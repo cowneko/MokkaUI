@@ -218,15 +218,15 @@ Collect the artifacts from `src-tauri/target/release/bundle/` (e.g., `.exe`, `.A
 Build the headless server binary:
 ```powershell
 cd src-tauri
-cargo build --release --no-default-features --features server --bin mooshieui-server
+cargo build --release --no-default-features --features server --bin mokkaui-server
 ```
-Copy `src-tauri/target/release/mooshieui-server` (or `.exe`) to `release-files/`.
+Copy `src-tauri/target/release/mokkaui-server` (or `.exe`) to `release-files/`.
 
 ### 4. Build and Publish Docker Image
 ```powershell
-docker build -t ghcr.io/<repository-owner>/mooshieui:vX.Y.Z -t ghcr.io/<repository-owner>/mooshieui:latest .
-docker push ghcr.io/<repository-owner>/mooshieui:vX.Y.Z
-docker push ghcr.io/<repository-owner>/mooshieui:latest
+docker build -t ghcr.io/<repository-owner>/mokkaui:vX.Y.Z -t ghcr.io/<repository-owner>/mokkaui:latest .
+docker push ghcr.io/<repository-owner>/mokkaui:vX.Y.Z
+docker push ghcr.io/<repository-owner>/mokkaui:latest
 ```
 
 ### 5. Generate Updater Manifest (`latest.json`)

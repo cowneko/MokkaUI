@@ -1,28 +1,45 @@
-# Maintainer: Mooshieblob <blob@mooshieblob.com>
+# Maintainer: Cowneko <52808649+cowneko@users.noreply.github.com>
 #
 # Rendered by scripts/aur-package.sh on every release and pushed to the AUR by
 # the publish-aur job in .github/workflows/release.yml. Edit this template in
-# the MooshieUI repo, not the copy on the AUR.
+# the MokkaUI repo (packaging/aur/mokkaui-bin/PKGBUILD.in), not the copy on
+# the AUR.
 
-pkgname=mooshieui-bin
+pkgname=mokkaui-bin
 pkgver=@PKGVER@
 pkgrel=1
-pkgdesc="Beginner-friendly AI image generation frontend for ComfyUI"
+pkgdesc="MokkaUI prebuilt binary - beginner-friendly AI image generation frontend for ComfyUI"
 arch=('x86_64')
-url="https://github.com/Mooshieblob1/MooshieUI"
+url="https://github.com/cowneko/MokkaUI"
 license=('AGPL-3.0-or-later')
 # git: first-run setup clones and updates ComfyUI with the system git.
 depends=('webkit2gtk-4.1' 'gtk3' 'git' 'hicolor-icon-theme')
-provides=('mooshieui' 'mooshie-ui')
-conflicts=('mooshieui' 'mooshie-ui')
+# 'mokkaui' is the virtual name our own deb/rpm already declare (bundle.linux
+# .deb/.rpm.provides in src-tauri/tauri.conf.json), so the AUR package claims
+# the same one. Deliberately absent: 'mooshieui' and 'mooshie-ui' belong to the
+# UPSTREAM project. Providing them would let pacman swap a user's upstream
+# MooshieUI install for this fork, and conflicts against them would remove that
+# install outright, even though upstream is a different app shipping different
+# files (its binary is usr/bin/comfyui-desktop, its desktop file
+# MooshieUI.desktop). No mokkaui package conflicts with this one, so there is no
+# conflicts= array here at all.
+provides=('mokkaui')
 options=('!strip' '!debug')
-source=("MooshieUI_${pkgver}_amd64.deb::https://github.com/Mooshieblob1/MooshieUI/releases/download/v${pkgver}/MooshieUI_${pkgver}_amd64.deb")
+source=("MokkaUI_${pkgver}_amd64.deb::https://github.com/cowneko/MokkaUI/releases/download/v${pkgver}/MokkaUI_${pkgver}_amd64.deb")
 sha256sums=('@SHA256@')
 
 package() {
   bsdtar -xf "${srcdir}"/data.tar.* -C "${pkgdir}" --no-same-owner
-  # Tells the app pacman owns this install, so it shows the update command
-  # instead of its own updater (src-tauri/src/package_manager.rs).
+  # What that .deb actually contains (Tauri v2 names the binary, Icon= and
+  # StartupWMClass after the Cargo package name and the desktop file after
+  # productName); pacman owns all of it as-is, nothing here renames anything:
+  #   usr/bin/mokkaui-desktop
+  #   usr/share/applications/MokkaUI.desktop
+  #   usr/share/icons/hicolor/512x512/apps/mokkaui-desktop.png
+  # Tells the app pacman owns this install, so it shows the system update
+  # command instead of its own updater (MARKER in src-tauri/src/package_manager.rs).
+  # That Rust constant still reads /usr/share/mooshieui/package-manager, so this
+  # path has to match it byte for byte: rename both together, never here alone.
   install -d "${pkgdir}/usr/share/mooshieui"
   printf 'pacman\n' > "${pkgdir}/usr/share/mooshieui/package-manager"
   chmod 644 "${pkgdir}/usr/share/mooshieui/package-manager"

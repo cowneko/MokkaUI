@@ -211,10 +211,12 @@ jobs:
           if-no-files-found: error
 
   # Signed apt + rpm repository metadata for this release, published as
-  # apt-* / rpm-* release assets that mooshieui.com/apt and /rpm redirect to.
-  # Must finish before `release`: published releases are immutable. Skipped
-  # with a warning (never failing the release) when the signing key secret or
-  # the committed public key is missing, or for prereleases.
+  # apt-* / rpm-* release assets on the GitHub Release itself. MokkaUI has no
+  # project website, so there is no mooshieui.com-style redirect in front of
+  # these files (see packaging/linux/README.md for what that means for apt/dnf).
+  # Must finish before `release`: published releases are immutable. Skipped with
+  # a warning (never failing the release) when the signing key secret is missing
+  # or the tag is a prerelease.
   linux-repo:
     needs: [sign-updaters]
     if: ${{ !cancelled() && needs.sign-updaters.result == 'success' }}
@@ -236,9 +238,6 @@ jobs:
         run: |
           if [ "$HAS_KEY" != 'true' ]; then
             echo "::warning::REPO_GPG_PRIVATE_KEY is not set; this release gets no apt/rpm repo metadata."
-            echo "run=false" >> "$GITHUB_OUTPUT"
-          elif [ ! -f packaging/linux/mooshieui.asc ]; then
-            echo "::warning::packaging/linux/mooshieui.asc is not committed yet; this release gets no apt/rpm repo metadata."
             echo "run=false" >> "$GITHUB_OUTPUT"
           elif [[ ! "${TAG#v}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "::warning::${TAG} is a prerelease; the apt/rpm repo only carries stable versions."
@@ -273,16 +272,26 @@ jobs:
           printf '%s' "$REPO_GPG_PASSPHRASE" | tr -d '\r\n' > "$passphrase"
           printf '%s\n' "$REPO_GPG_PRIVATE_KEY" | tr -d '\r' \
             | gpg --batch --pinentry-mode loopback --passphrase-file "$passphrase" --import
-          # Only sign with the key whose public half is committed and served
-          # at mooshieui.com/mooshieui.asc.
-          pinned=$(gpg --batch --with-colons --show-keys packaging/linux/mooshieui.asc | awk -F: '/^fpr/{print $10; exit}')
-          if ! gpg --batch --with-colons --list-secret-keys "$pinned" >/dev/null 2>&1; then
-            echo "::error::REPO_GPG_PRIVATE_KEY does not hold the key in packaging/linux/mooshieui.asc ($pinned)."
+          # Which key signs is decided by the secret itself, not by a committed
+          # public half: GNUPGHOME above is a fresh runner-temp directory that
+          # only holds what we just imported, so the first fpr: line is the
+          # primary key of REPO_GPG_PRIVATE_KEY. (The old code pinned the
+          # fingerprint of packaging/linux/mooshieui.asc, upstream MooshieUI's
+          # repo key, which this fork can never hold the private half of.)
+          pinned=$(gpg --batch --with-colons --list-secret-keys | awk -F: '/^fpr/{print $10; exit}')
+          if [ -z "$pinned" ]; then
+            echo "::error::REPO_GPG_PRIVATE_KEY imported but no secret key fingerprint came back; nothing to sign the apt/rpm repo with."
             exit 1
           fi
+          echo "Signing the apt/rpm repo with $pinned. Publish that key's public half with the repo instructions (packaging/linux/README.md)."
           deb=$(find linux/deb -name "*_${TAG#v}_amd64.deb")
           rpm=$(find linux/rpm -name "*-${TAG#v}-1.x86_64.rpm")
+          # MOOSHIEUI_GITHUB_REPO is the repository the rpm repodata baseurl is
+          # built from. scripts/linux-repo.sh now defaults to this fork, so the
+          # failure it prevents is silent: an unset value there would make dnf
+          # download the package from some other project's release assets.
           MOOSHIEUI_REPO_KEY="$pinned" MOOSHIEUI_REPO_PASSPHRASE_FILE="$passphrase" \
+          MOOSHIEUI_GITHUB_REPO="${{ github.repository }}" \
             bash scripts/linux-repo.sh "$TAG" "$deb" "$rpm" linux-repo
           rm -rf "$GNUPGHOME" "$passphrase"
 
@@ -340,7 +349,7 @@ jobs:
             '| Platform | File |' \
             '|----------|------|' \
             '| **Windows** | `_x64-setup.exe` |' \
-            '| **Linux** | `.AppImage`, `.deb` or `.rpm`, or apt, dnf and the AUR ([Linux guide](https://github.com/Mooshieblob1/MooshieUI/blob/main/docs/LINUX.md)) |' \
+            '| **Linux** | `.AppImage`, `.deb` or `.rpm`, or apt, dnf and the AUR ([Linux guide](https://github.com/${{ github.repository }}/blob/${{ github.event.inputs.tag || github.ref_name }}/docs/LINUX.md)) |' \
             '' \
             '---' \
             '' \
@@ -349,7 +358,7 @@ jobs:
           if [ "$INCLUDE_MACOS" = 'true' ]; then
             printf '%s\n' \
               '### macOS (Apple Silicon)' \
-              'Download the `_aarch64.dmg` for macOS 14 or later. Verify its SHA-256 against `SHA256SUMS`, copy MooshieUI to Applications, and open it. This app is ad-hoc signed and is not notarized by Apple; if blocked, use System Settings > Privacy & Security > Open Anyway.' \
+              'Download the `_aarch64.dmg` for macOS 14 or later. Verify its SHA-256 against `SHA256SUMS`, copy MokkaUI to Applications, and open it. This app is ad-hoc signed and is not notarized by Apple; if blocked, use System Settings > Privacy & Security > Open Anyway.' \
               'See [Mac installation and supported scope](https://github.com/${{ github.repository }}/blob/${{ github.event.inputs.tag || github.ref_name }}/docs/MACOS.md).' \
               '' >> /tmp/release-body.md
           fi
@@ -374,7 +383,7 @@ jobs:
             echo "Release ${TAG} already exists; updating notes and replacing assets."
             gh release edit "${TAG}" \
               --repo "${{ github.repository }}" \
-              --title "MooshieUI ${TAG}" \
+              --title "MokkaUI ${TAG}" \
               --notes-file /tmp/release-body.md
             upload_log="$(mktemp)"
             if ! gh release upload "${TAG}" \
@@ -398,15 +407,17 @@ jobs:
           else
             gh release create "${TAG}" \
               --repo "${{ github.repository }}" \
-              --title "MooshieUI ${TAG}" \
+              --title "MokkaUI ${TAG}" \
               --notes-file /tmp/release-body.md \
               release-files/*
           fi
 
-  # Pushes the mooshieui-bin PKGBUILD for this release to the AUR, so Arch
-  # users get it with `yay -S mooshieui-bin`. Skipped with a warning when the
-  # AUR_SSH_KEY secret is missing or the tag is a prerelease; never blocks the
-  # release itself, which is already published by now.
+  # Pushes the mokkaui-bin PKGBUILD for this release to the AUR, so Arch users
+  # get it with `yay -S mokkaui-bin`. The AUR account must already own a package
+  # named mokkaui-bin there (register it once at https://aur.archlinux.org/);
+  # this fork never publishes to upstream's mooshieui-bin. Skipped with a
+  # warning when the AUR_SSH_KEY secret is missing or the tag is a prerelease;
+  # never blocks the release itself, which is already published by now.
   publish-aur:
     needs: release
     if: ${{ !cancelled() && needs.release.result == 'success' }}
@@ -460,7 +471,7 @@ jobs:
           fi
           export GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o UserKnownHostsFile=$hosts -o StrictHostKeyChecking=yes"
           repo="$RUNNER_TEMP/aur-repo"
-          git clone ssh://aur@aur.archlinux.org/mooshieui-bin.git "$repo"
+          git clone ssh://aur@aur.archlinux.org/mokkaui-bin.git "$repo"
           cp "$RUNNER_TEMP/aur/PKGBUILD" "$RUNNER_TEMP/aur/.SRCINFO" "$repo/"
           cd "$repo"
           git add PKGBUILD .SRCINFO
@@ -468,7 +479,9 @@ jobs:
             echo "The AUR already has ${TAG#v}."
             exit 0
           fi
-          git -c user.name=Mooshieblob -c user.email=blob@mooshieblob.com commit -m "Update to ${TAG#v}"
+          # Commit as the repo owner (github.com/cowneko). GitHub exposes no
+          # public email, so this is the noreply form id+login@users.noreply.github.com.
+          git -c user.name=Cowneko -c user.email=52808649+cowneko@users.noreply.github.com commit -m "Update to ${TAG#v}"
           git push origin HEAD:master
           rm -f "$key"
 
@@ -585,7 +598,7 @@ jobs:
           MAJOR_MINOR="$(echo "${VERSION}" | awk -F. '{print $1 "." $2}')"
           SHORT_SHA="${GITHUB_SHA::12}"
 
-          echo "image=ghcr.io/${OWNER}/mooshieui" >> "$GITHUB_OUTPUT"
+          echo "image=ghcr.io/${OWNER}/mokkaui" >> "$GITHUB_OUTPUT"
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "major_minor=${MAJOR_MINOR}" >> "$GITHUB_OUTPUT"
           echo "short_sha=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
