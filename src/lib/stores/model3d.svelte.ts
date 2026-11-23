@@ -102,7 +102,7 @@ const defaults = (): SplatParams => ({
 const meshDefaults = (): MeshParams => ({ model: "", remove_background: true, detail: "high", seed: "-1" });
 /** Saved settings older than this kept ComfyUI's stock 20 steps / guidance 3, so those two are reset. */
 const SETTINGS_VERSION = 2;
-const EXPERIMENTAL_KEY = "mooshieui.experimental.model3d";
+const EXPERIMENTAL_KEY = "mokkaui.experimental.model3d";
 
 const libraryAccount = () => {
   const user = getAuthUser();
@@ -274,7 +274,7 @@ class Model3DStore {
 
   loadSettings() {
     try {
-      const raw = localStorage.getItem(`mooshieui.model3d.${getAuthUser() ?? "host"}`);
+      const raw = localStorage.getItem(`mokkaui.model3d.${getAuthUser() ?? "host"}`);
       if (!raw) return;
       const saved = JSON.parse(raw);
       const next = defaults();
@@ -299,7 +299,7 @@ class Model3DStore {
   }
 
   saveSettings() {
-    try { localStorage.setItem(`mooshieui.model3d.${getAuthUser() ?? "host"}`, JSON.stringify({ ...this.params, v: SETTINGS_VERSION, engine: this.engine, mesh: this.meshParams })); } catch { /* private mode */ }
+    try { localStorage.setItem(`mokkaui.model3d.${getAuthUser() ?? "host"}`, JSON.stringify({ ...this.params, v: SETTINGS_VERSION, engine: this.engine, mesh: this.meshParams })); } catch { /* private mode */ }
   }
 
   loadEnabled() {

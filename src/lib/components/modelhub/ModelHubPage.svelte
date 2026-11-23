@@ -29,9 +29,9 @@
   import { KREA2_EDIT_LORAS } from "../../utils/krea2Edit.js";
   import { civitaiModelPageUrl, isCivitaiPageHost, isMatureCivitaiModel } from "../../utils/civitaiUrl.js";
 
-  const CIVITAI_API_KEY_KEY = "mooshieui.civitai.apiKey.v1";
-  const CIVITAI_COLUMNS_KEY = "mooshieui.civitai.columns.v1";
-  const CIVITAI_ARCH_CACHE_KEY = "mooshieui.civitai.architectures.v2";
+  const CIVITAI_API_KEY_KEY = "mokkaui.civitai.apiKey.v1";
+  const CIVITAI_COLUMNS_KEY = "mokkaui.civitai.columns.v1";
+  const CIVITAI_ARCH_CACHE_KEY = "mokkaui.civitai.architectures.v2";
   const CIVITAI_ARCH_CACHE_MAX_AGE_MS = 1000 * 60 * 60 * 12;
   const ARCHITECTURE_LOAD_TIMEOUT_MS = 12000;
   const MODEL_FILE_EXTENSIONS = [

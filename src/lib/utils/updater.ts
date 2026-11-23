@@ -60,7 +60,7 @@ const PACKAGE_MANAGER_UPDATE_COMMANDS: Record<string, string> = {
   apt: "sudo apt update && sudo apt upgrade",
   dnf: "sudo dnf upgrade --refresh mooshieui",
   zypper: "sudo zypper refresh && sudo zypper update mooshieui",
-  pacman: "yay -Syu mooshieui-bin",
+  pacman: "yay -Syu mokkaui-bin",
 };
 
 let packageManagerCommand: Promise<string | null> | null = null;

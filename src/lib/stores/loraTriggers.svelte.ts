@@ -12,7 +12,7 @@ import { normalizeTrigger } from "../utils/loraTriggerText.js";
  * the `lora_presets` category of the shared prefs (see `loraPresets`).
  */
 
-const STORAGE_KEY = "mooshieui.loraTriggers.v1";
+const STORAGE_KEY = "mokkaui.loraTriggers.v1";
 
 function sanitize(raw: unknown): Record<string, string> {
   const out: Record<string, string> = {};

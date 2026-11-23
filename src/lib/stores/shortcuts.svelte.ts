@@ -9,7 +9,7 @@ import {
   type KeyEventLike,
 } from "../utils/shortcuts.js";
 
-const SHORTCUTS_SETTINGS_KEY = "mooshieui.shortcuts.v1";
+const SHORTCUTS_SETTINGS_KEY = "mokkaui.shortcuts.v1";
 
 class ShortcutsStore {
   customBindings = $state<Record<string, string>>({});

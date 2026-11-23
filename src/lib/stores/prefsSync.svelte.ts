@@ -50,7 +50,7 @@ import { shortcuts } from "./shortcuts.svelte.js";
 import { videoTimeline } from "./videoTimeline.svelte.js";
 
 /** Set (per mode, per account) once this mode's local copy has been merged in. */
-const MERGED_FLAG_KEY = "mooshieui.prefsMerged.v1";
+const MERGED_FLAG_KEY = "mokkaui.prefsMerged.v1";
 /** Ignore focus bursts: one pull per this many ms is plenty. */
 const REFRESH_MIN_INTERVAL_MS = 3000;
 /** Browsers reject keepalive bodies over 64 KB; stay under it. */

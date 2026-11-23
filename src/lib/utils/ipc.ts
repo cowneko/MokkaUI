@@ -22,9 +22,9 @@ type EventCallback = (event: { payload: any }) => void;
 // Auth token management (browser mode only)
 // ---------------------------------------------------------------------------
 
-const AUTH_TOKEN_KEY = "mooshie:auth_token";
-const AUTH_USER_KEY = "mooshie:auth_user";
-const AUTH_REMEMBER_KEY = "mooshie:remember_me";
+const AUTH_TOKEN_KEY = "mokkaui:auth_token";
+const AUTH_USER_KEY = "mokkaui:auth_user";
+const AUTH_REMEMBER_KEY = "mokkaui:remember_me";
 
 /** Returns the active storage backend (localStorage if "remember me", sessionStorage otherwise). */
 function authStorage(): Storage {
@@ -176,7 +176,7 @@ function ensureBrowserEventSource() {
   };
   browserEventSource.onopen = () => {
     // Notify the app that SSE reconnected so it can immediately re-sync state
-    window.dispatchEvent(new CustomEvent("mooshie:sse-reconnected"));
+    window.dispatchEvent(new CustomEvent("mokkaui:sse-reconnected"));
   };
   browserEventSource.onerror = () => {
     // Reconnect after a short delay

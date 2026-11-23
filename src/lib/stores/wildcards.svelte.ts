@@ -8,7 +8,7 @@ import {
   type WildcardTable,
 } from "../utils/wildcards.js";
 
-const ORDER_KEY = "mooshieui.wildcards.order.v1";
+const ORDER_KEY = "mokkaui.wildcards.order.v1";
 
 interface PersistedOrder {
   ordered: string[];

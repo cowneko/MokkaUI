@@ -134,7 +134,7 @@ class ProgressStore {
 
   /**
    * Server-wide generation activity broadcast to all users.
-   * null when the server is idle. Set from `mooshie:server_progress` events.
+   * null when the server is idle. Set from `mokkaui:server_progress` events.
    */
   serverProgress = $state<{ value: number; max: number } | null>(null);
 
@@ -373,7 +373,7 @@ class ProgressStore {
     this.totalSteps = max;
   }
 
-  /** Called when a mooshie:queue_update event arrives with position info. */
+  /** Called when a mokkaui:queue_update event arrives with position info. */
   updateQueuePosition(promptId: string, position: number, total: number) {
     // Only update if this prompt is one of ours
     if (this.pendingPrompts.some((p) => p.promptId === promptId)) {
@@ -611,7 +611,7 @@ class ProgressStore {
     this.queueTotal = 0;
   }
 
-  /** Update server-wide progress (from mooshie:server_progress events). */
+  /** Update server-wide progress (from mokkaui:server_progress events). */
   updateServerProgress(value: number, max: number) {
     if (max <= 0) {
       this.serverProgress = null;

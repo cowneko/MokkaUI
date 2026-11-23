@@ -545,7 +545,7 @@
   function openShortcutsSettings() {
     shortcuts.closeCheatSheet();
     try {
-      localStorage.setItem("mooshieui.settings.activeCategory.v1", "shortcuts");
+      localStorage.setItem("mokkaui.settings.activeCategory.v1", "shortcuts");
     } catch {
       /* ignore */
     }
@@ -1206,7 +1206,7 @@
 
   // Image Info fields: which ones show and in what order. A per-device view
   // preference, so localStorage rather than the synced prefs.
-  const IMAGE_INFO_FIELDS_KEY = "mooshieui.gallery.imageInfoFields.v1";
+  const IMAGE_INFO_FIELDS_KEY = "mokkaui.gallery.imageInfoFields.v1";
   let imageInfoPrefs = $state<ImageInfoPrefs>(readImageInfoPrefs());
   let imageInfoEditing = $state(false);
   function readImageInfoPrefs(): ImageInfoPrefs {
@@ -1228,7 +1228,7 @@
   /** Dir picker shown when manualSaveMode is on and 2+ dirs are configured. */
   let dirPickerImage = $state<OutputImage | null>(null);
 
-  const WIN_STATE_KEY = "mooshieui.window.state.v1";
+  const WIN_STATE_KEY = "mokkaui.window.state.v1";
 
   function saveWindowMaximized(maximized: boolean) {
     try { localStorage.setItem(WIN_STATE_KEY, JSON.stringify({ maximized })); } catch {}
@@ -1715,7 +1715,7 @@
   // users who knew the feature from its pre-v1.6.0 spot in the panel list
   // (issue #488). UI layout pref → localStorage, like the combined-prompt
   // toggle. Using the button also dismisses it: the feature was found.
-  const INTERROGATE_HINT_KEY = "mooshieui.hint.interrogate-sidebar.v1";
+  const INTERROGATE_HINT_KEY = "mokkaui.hint.interrogate-sidebar.v1";
   let showInterrogateHint = $state(localStorage.getItem(INTERROGATE_HINT_KEY) !== "true");
   function dismissInterrogateHint() {
     showInterrogateHint = false;
@@ -2826,8 +2826,8 @@
     // would otherwise auto-recover the completion marker and skip the wizard, so
     // honor the flag here and force it. Running in a fresh session also avoids
     // re-registering initApp()'s listeners; initApp runs after the wizard finishes.
-    if (localStorage.getItem("mooshieui_force_setup") === "1") {
-      localStorage.removeItem("mooshieui_force_setup");
+    if (localStorage.getItem("mokkaui_force_setup") === "1") {
+      localStorage.removeItem("mokkaui_force_setup");
       setupComplete = false;
       return;
     }
@@ -3021,7 +3021,7 @@
           kind: status === "skipped" ? "info" : "warning",
         });
       }),
-      ipcListen("mooshie:queue_update", (event: any) => {
+      ipcListen("mokkaui:queue_update", (event: any) => {
         const data = event.payload;
         if (data.kind === "3d" || (data.prompt_id && model3d.isModel3DPrompt(data.prompt_id))) {
           if (data.prompt_id) model3d.rememberPrompt(data.prompt_id);
@@ -3046,7 +3046,7 @@
           progress.updateQueuePosition(data.prompt_id, data.position, data.total);
         }
       }),
-      ipcListen("mooshie:server_progress", (event: any) => {
+      ipcListen("mokkaui:server_progress", (event: any) => {
         const data = event.payload;
         if (data.active && data.max > 0) {
           progress.updateServerProgress(data.value, data.max);
@@ -3054,7 +3054,7 @@
           progress.clearServerProgress();
         }
       }),
-      ipcListen("mooshie:queue_cleared", (_event: any) => {
+      ipcListen("mokkaui:queue_cleared", (_event: any) => {
         // Admin/mod cleared the queue — cancel all pending state on this client
         promptLastActivity.clear();
         progress.cancelAll();
@@ -3076,7 +3076,7 @@
       // already saved it, so only surface it at the top of the gallery.
       // Saves from any client; lets a page that only watched a prompt reuse
       // the submitter's save (see savedByAnotherClient).
-      ipcListen("mooshie:image_saved", (event: any) => {
+      ipcListen("mokkaui:image_saved", (event: any) => {
         const promptId = event.payload?.prompt_id;
         const filename = event.payload?.filename;
         if (typeof promptId === "string" && typeof filename === "string") gallery.noteSaved(promptId, filename);
@@ -3640,12 +3640,12 @@
       }
     };
     sseReconnectHandler = handleSseReconnect;
-    window.addEventListener("mooshie:sse-reconnected", handleSseReconnect);
+    window.addEventListener("mokkaui:sse-reconnected", handleSseReconnect);
 
     modelPreviewActionHandler = (event: Event) => {
       void handleModelPreviewAction(event);
     };
-    window.addEventListener("mooshie:model-preview-action", modelPreviewActionHandler);
+    window.addEventListener("mokkaui:model-preview-action", modelPreviewActionHandler);
 
     // Bring ComfyUI up to the pinned tag before starting it. MokkaUI ships
     // against one exact ComfyUI release, so a MokkaUI update that bumps the
@@ -3776,9 +3776,9 @@
 
   onDestroy(() => {
     if (reconcileIntervalId) clearInterval(reconcileIntervalId);
-    if (sseReconnectHandler) window.removeEventListener("mooshie:sse-reconnected", sseReconnectHandler);
+    if (sseReconnectHandler) window.removeEventListener("mokkaui:sse-reconnected", sseReconnectHandler);
     if (modelPreviewActionHandler) {
-      window.removeEventListener("mooshie:model-preview-action", modelPreviewActionHandler);
+      window.removeEventListener("mokkaui:model-preview-action", modelPreviewActionHandler);
     }
     cancelInterrogateHoverTimer();
     if (unlistenInterrogateDragDrop) unlistenInterrogateDragDrop();

@@ -197,7 +197,7 @@ export interface PortraitExtras {
   styleIds: string[];
 }
 
-const EXTRAS_KEY = "mooshieui.characterPortrait.v1";
+const EXTRAS_KEY = "mokkaui.characterPortrait.v1";
 
 /** The extras picked last time, so a set of portraits can share one look. */
 export function loadPortraitExtras(): PortraitExtras {

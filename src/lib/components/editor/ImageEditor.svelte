@@ -213,7 +213,7 @@
     { key: "effects", sliders: [range("vignette")] },
   ];
 
-  const PRESETS_KEY = "mooshieui.editor.presets.v1";
+  const PRESETS_KEY = "mokkaui.editor.presets.v1";
   const MAX_PRESETS = 24;
   /** How close (in curve units, 0..255) a press must be to grab a point. */
   const CURVE_GRAB = 14;

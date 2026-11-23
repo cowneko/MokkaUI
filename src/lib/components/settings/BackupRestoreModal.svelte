@@ -109,7 +109,7 @@
       const bundle = await collectBackupBundle();
       const withAdmin = isAdmin && includeAdminExport;
       const date = new Date().toISOString().slice(0, 10);
-      const defaultName = `mooshieui-backup-${date}.zip`;
+      const defaultName = `mokkaui-backup-${date}.zip`;
 
       if (isTauri) {
         const { save } = await import("@tauri-apps/plugin-dialog");

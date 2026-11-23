@@ -120,7 +120,7 @@
       : locale.t("generation.prompts.extra_box_negative_placeholder")}
     rows={3}
     minHeight="min-h-16"
-    storageKey={`mooshieui.promptHeight.extra.${side}.${id}`}
+    storageKey={`mokkaui.promptHeight.extra.${side}.${id}`}
     tagAssist={!isVideoMode}
     suggestLoraKeywords={side === "positive"}
   />

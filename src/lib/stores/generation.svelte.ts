@@ -129,7 +129,7 @@ import { loraTriggers } from "./loraTriggers.svelte.js";
 import { insertTrigger, removeTrigger } from "../utils/loraTriggerText.js";
 
 const STORE_KEY = "generation-settings";
-const PROMPT_HISTORY_KEY = "mooshieui.promptHistory.v1";
+const PROMPT_HISTORY_KEY = "mokkaui.promptHistory.v1";
 const MAX_PROMPT_HISTORY = 100;
 
 /** ModelSpec fields the model info panel renders; a spec with none is treated as empty. */
@@ -3090,9 +3090,9 @@ class GenerationStore {
       if (saved) {
         this.applySettingsSnapshot(saved);
         // Migrate: old default was "text_chunk", new default is "both" (stealth + text)
-        if (!localStorage.getItem("mooshieui.metadataMode.v2")) {
+        if (!localStorage.getItem("mokkaui.metadataMode.v2")) {
           this.metadataMode = "both";
-          localStorage.setItem("mooshieui.metadataMode.v2", "1");
+          localStorage.setItem("mokkaui.metadataMode.v2", "1");
         }
         console.log("Loaded saved settings, checkpoint:", this.checkpoint);
         // Autocomplete tag-set sync with the restored model is handled by an

@@ -4,14 +4,20 @@
  * Persists a user's favourited artist slugs along with user-created
  * categories (name + colour) and the mapping between them.
  *
- * Storage: localStorage under `mooshieui.artist-gallery.favourites.v1` (per LAN
+ * Storage: localStorage under `mokkaui.artist-gallery.favourites.v1` (per LAN
  * account, see `userScopedKey`).
  * Import/export: JSON blob with the same shape as the persisted payload,
  * wrapped in a small envelope for forward-compatibility.
  */
 
-const STORAGE_KEY = "mooshieui.artist-gallery.favourites.v1";
-export const EXPORT_KIND = "mooshieui.artist-gallery.favourites";
+const STORAGE_KEY = "mokkaui.artist-gallery.favourites.v1";
+export const EXPORT_KIND = "mokkaui.artist-gallery.favourites";
+/**
+ * Exports written before this fork existed carry the old discriminator. They
+ * are the user's own backups, so importing them has to keep working; new
+ * exports are written with `EXPORT_KIND`.
+ */
+const LEGACY_EXPORT_KINDS: readonly string[] = ["mooshieui.artist-gallery.favourites"];
 export const EXPORT_VERSION = 1;
 
 import { triggerSync } from "../utils/syncTrigger.js";
@@ -270,7 +276,8 @@ class ArtistFavouritesStore {
   ): { added: number; updated: number; categoriesAdded: number } {
     const parsed = JSON.parse(raw) as Partial<FavouritesExport>;
     if (!parsed || typeof parsed !== "object") throw new Error(locale.t("artist_gallery.fav_manager.import_error.invalid_json"));
-    if (parsed.kind !== EXPORT_KIND) throw new Error(locale.t("artist_gallery.fav_manager.import_error.not_export"));
+    if (parsed.kind !== EXPORT_KIND && !LEGACY_EXPORT_KINDS.includes(String(parsed.kind)))
+        throw new Error(locale.t("artist_gallery.fav_manager.import_error.not_export"));
 
     const incomingCats: FavouriteCategory[] = Array.isArray(parsed.categories)
       ? parsed.categories.filter(

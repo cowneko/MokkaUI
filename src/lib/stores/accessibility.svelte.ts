@@ -1,9 +1,9 @@
 import { triggerSync } from "../utils/syncTrigger.js";
 import { userScopedKey } from "../utils/ipc.js";
 
-const ACCESSIBILITY_SETTINGS_KEY = "mooshieui.accessibility.v1";
+const ACCESSIBILITY_SETTINGS_KEY = "mokkaui.accessibility.v1";
 /** Where the dyslexia-friendly font toggle lived before it joined this store. */
-const LEGACY_DYSLEXIC_FONT_KEY = "mooshieui.dyslexicFont";
+const LEGACY_DYSLEXIC_FONT_KEY = "mokkaui.dyslexicFont";
 
 export type VisionSimulatorMode = "none" | "protanopia" | "deuteranopia" | "tritanopia";
 

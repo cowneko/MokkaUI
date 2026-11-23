@@ -37,7 +37,7 @@ import { isBelowThresholdCount } from "../artist-gallery/counts.js";
 import type { ArtistSearchHit } from "../artist-gallery/types.js";
 import type { OutputImage } from "../types/index.js";
 
-const STORAGE_KEY = "mooshieui.styleCreator.v1";
+const STORAGE_KEY = "mokkaui.styleCreator.v1";
 /** Redraw attempts before a round is declared exhausted. */
 const MAX_DRAW_ATTEMPTS = 100;
 const MIN_COUNT = 1;

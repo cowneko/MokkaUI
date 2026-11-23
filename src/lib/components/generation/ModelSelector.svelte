@@ -1534,7 +1534,7 @@
   // One slider for both LoRA strengths (the default) or separate model and
   // CLIP sliders. A display preference, so it is kept per device rather than
   // per generation tab.
-  const LORA_LINKED_KEY = "mooshieui.generation.loraLinkedStrength.v1";
+  const LORA_LINKED_KEY = "mokkaui.generation.loraLinkedStrength.v1";
   let loraLinkedStrength = $state(readLoraLinked());
   function readLoraLinked(): boolean {
     try { return localStorage.getItem(LORA_LINKED_KEY) !== "false"; } catch { return true; }
@@ -1549,7 +1549,7 @@
     generation.saveSettings();
   }
 
-  const LORAS_COLLAPSE_KEY = "mooshieui.generation.lorasCollapsed.v1";
+  const LORAS_COLLAPSE_KEY = "mokkaui.generation.lorasCollapsed.v1";
   let lorasOpen = $state(localStorage.getItem(LORAS_COLLAPSE_KEY) !== "true");
   let lorasSaveTimer: ReturnType<typeof setTimeout> | null = null;
   $effect(() => {

@@ -37,9 +37,9 @@
 
   let { cardSize = 120, onCardSizeChange }: Props = $props();
 
-  const CACHE_KEY = "mooshieui.lora.civitai.cache.v3";
+  const CACHE_KEY = "mokkaui.lora.civitai.cache.v3";
   const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-  const SORT_KEY = "mooshieui.lora.gallery.sort.v1";
+  const SORT_KEY = "mokkaui.lora.gallery.sort.v1";
 
   interface CacheEntry {
     data: LoraCivitaiInfo;
@@ -98,7 +98,7 @@
   let presetStatus = $state<string | null>(null);
   let presetError = $state<string | null>(null);
   // LoRA Presets folds away (closed by default) so the LoRA list gets the room (#988).
-  const PRESETS_OPEN_KEY = "mooshieui.lora.presetsOpen.v1";
+  const PRESETS_OPEN_KEY = "mokkaui.lora.presetsOpen.v1";
   let presetsOpen = $state(readPresetsOpen());
   function readPresetsOpen(): boolean {
     try { return localStorage.getItem(PRESETS_OPEN_KEY) === "true"; } catch { return false; }

@@ -6,7 +6,7 @@
  * contribute tags to the generated prompt WITHOUT appearing in the prompt
  * textbox — they are injected downstream in `generation.toParams()`.
  *
- * Storage: localStorage under `mooshieui.styles.v1` (per LAN account, see `userScopedKey`).
+ * Storage: localStorage under `mokkaui.styles.v1` (per LAN account, see `userScopedKey`).
  * Import/export: plain `.txt` files — filename (minus extension) becomes
  * the style name. Each non-blank, non-comment line is one artist in
  * `tag[:weight]` form (weight defaults to 1.0). `# ...` lines and blank
@@ -15,8 +15,8 @@
  * style adds to the negative prompt.
  */
 
-const STORAGE_KEY = "mooshieui.styles.v1";
-const ACTIVE_KEY = "mooshieui.styles.active.v1";
+const STORAGE_KEY = "mokkaui.styles.v1";
+const ACTIVE_KEY = "mokkaui.styles.active.v1";
 const EXPORT_VERSION = 1;
 
 import { stripArtistSigil } from "../utils/artistTag.js";

@@ -1,7 +1,7 @@
 import { triggerSync } from "../utils/syncTrigger.js";
 import { userScopedKey } from "../utils/ipc.js";
 
-const STORAGE_KEY = "mooshieui.profiles.v1";
+const STORAGE_KEY = "mokkaui.profiles.v1";
 const EXPORT_VERSION = 1;
 
 /**

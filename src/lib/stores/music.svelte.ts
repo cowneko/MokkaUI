@@ -194,7 +194,7 @@ class MusicStore {
 
   loadSettings() {
     try {
-      const raw = localStorage.getItem(`mooshieui.music.${getAuthUser() ?? "host"}`);
+      const raw = localStorage.getItem(`mokkaui.music.${getAuthUser() ?? "host"}`);
       if (!raw) return;
       const parsed = JSON.parse(raw);
       const next = defaults();
@@ -215,7 +215,7 @@ class MusicStore {
 
   saveSettings() {
     try {
-      localStorage.setItem(`mooshieui.music.${getAuthUser() ?? "host"}`, JSON.stringify(this.params));
+      localStorage.setItem(`mokkaui.music.${getAuthUser() ?? "host"}`, JSON.stringify(this.params));
     } catch (error) { console.warn("Failed to save music settings", error); }
   }
 
@@ -325,7 +325,7 @@ class MusicStore {
   private persistJob() {
     if (!this.jobOwner) return;
     try {
-      const key = `mooshieui.music.active.${this.jobOwner}`;
+      const key = `mokkaui.music.active.${this.jobOwner}`;
       if (this.job && this.submittedParams) localStorage.setItem(key, JSON.stringify({ job: this.job, params: this.submittedParams, startedAt: this.startedAt, batchId: this.activeBatch?.id }));
       else localStorage.removeItem(key);
     } catch { this.libraryError = locale.t("music.job_recovery_unavailable"); }
@@ -334,7 +334,7 @@ class MusicStore {
   private recoverJob(owner: string) {
     if (this.job || this.phase !== "idle") return;
     try {
-      const raw = localStorage.getItem(`mooshieui.music.active.${owner}`);
+      const raw = localStorage.getItem(`mokkaui.music.active.${owner}`);
       if (!raw) return;
       const saved = JSON.parse(raw);
       if (!saved.job || typeof saved.job.prompt_id !== "string" || !Number.isInteger(saved.job.worker_id) || !saved.params || typeof saved.params.abc !== "string" || typeof saved.params.lyrics !== "string") return;

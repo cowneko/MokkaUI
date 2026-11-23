@@ -11,11 +11,11 @@ import { mergeLocalExtras, type LocalExtrasData } from "./backupMerge.js";
 import { ipcStore, userScopedKey } from "./ipc.js";
 import type { UserPrefsData } from "./serverPrefs.js";
 
-const COMIC_BOOKS_KEY = "mooshieui.comic.books.v1";
+const COMIC_BOOKS_KEY = "mokkaui.comic.books.v1";
 const GENERATION_TABS_KEY = "generation_tabs";
-const CHARACTER_PORTRAIT_KEY = "mooshieui.characterPortrait.v1";
-const WILDCARDS_ORDER_KEY = "mooshieui.wildcards.order.v1";
-const SHORTCUTS_KEY = "mooshieui.shortcuts.v1";
+const CHARACTER_PORTRAIT_KEY = "mokkaui.characterPortrait.v1";
+const WILDCARDS_ORDER_KEY = "mokkaui.wildcards.order.v1";
+const SHORTCUTS_KEY = "mokkaui.shortcuts.v1";
 
 export type BackupCategoryId =
   | "characters"

@@ -1,6 +1,6 @@
 export type AutoUpdateMode = "off" | "download" | "auto";
 
-export const AUTO_UPDATE_STORAGE_KEY = "mooshieui.updater.autoUpdate.v1";
+export const AUTO_UPDATE_STORAGE_KEY = "mokkaui.updater.autoUpdate.v1";
 
 /** Normalize an untrusted or persisted auto-update preference value. */
 export function parseAutoUpdateMode(raw: unknown): AutoUpdateMode {

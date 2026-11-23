@@ -9,7 +9,7 @@
 
 import { isBrowserMode } from "./ipc.js";
 
-const FORCE_DESKTOP_KEY = "mooshie:forceDesktopLayout";
+const FORCE_DESKTOP_KEY = "mokkaui:forceDesktopLayout";
 
 /** Heuristic UA test. Matches phones + tablets (incl. iPadOS faking desktop Safari). */
 export function isMobileUA(): boolean {

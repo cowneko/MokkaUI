@@ -34,7 +34,7 @@
   // NovelAI-style combined prompt view: one box with a Positive/Negative
   // switcher. Persisted (UI layout pref → localStorage, not generation
   // settings); the active tab itself is session-only.
-  const COMBINED_KEY = "mooshieui.prompts.combined.v1";
+  const COMBINED_KEY = "mokkaui.prompts.combined.v1";
   let combinedMode = $state(localStorage.getItem(COMBINED_KEY) === "true");
   let activeTab = $state<"positive" | "negative">("positive");
   $effect(() => {
@@ -355,7 +355,7 @@
       placeholder={generation.isAnima ? locale.t("generation.prompts.positive_placeholder_anima") : locale.t("generation.prompts.positive_placeholder")}
       rows={4}
       minHeight="min-h-25"
-      storageKey="mooshieui.promptHeight.positive"
+      storageKey="mokkaui.promptHeight.positive"
       tagAssist={!isVideoMode}
       highlightLoraWords={true}
     />
@@ -429,7 +429,7 @@
       placeholder={locale.t('generation.prompts.negative_placeholder')}
       rows={3}
       minHeight="min-h-18"
-      storageKey="mooshieui.promptHeight.negative"
+      storageKey="mokkaui.promptHeight.negative"
       tagAssist={!isVideoMode}
       suggestLoraKeywords={false}
     />

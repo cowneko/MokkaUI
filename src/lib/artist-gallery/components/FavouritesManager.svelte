@@ -77,7 +77,7 @@
 
   async function exportFavourites() {
     const json = artistFavourites.exportJSON();
-    const defaultName = `mooshieui-artist-favourites-${new Date().toISOString().slice(0, 10)}.json`;
+    const defaultName = `mokkaui-artist-favourites-${new Date().toISOString().slice(0, 10)}.json`;
     const isTauri = typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
     try {
       if (isTauri) {

@@ -64,7 +64,7 @@
 
   type TabId = "loras" | "checkpoints" | "images" | "prompts" | "wildcards" | "characters" | "compare" | "artists" | "styles" | "style_creator" | "schedule" | "timeline" | "notes";
 
-  const TAB_KEY = "mooshieui.bottomPanel.activeTab.v1";
+  const TAB_KEY = "mokkaui.bottomPanel.activeTab.v1";
 
   const showCheckpointsTab = $derived(models.checkpoints.length > 10 || generation.devMode);
   const isVideoMode = $derived(generation.mode === "video");
@@ -181,7 +181,7 @@
   });
 
   // Card size sliders (persisted)
-  const CARD_SIZE_KEY = "mooshieui.bottomPanel.cardSize.v1";
+  const CARD_SIZE_KEY = "mokkaui.bottomPanel.cardSize.v1";
 
   function loadCardSizes(): { lora: number; image: number } {
     try {
@@ -244,7 +244,7 @@
   let artistCategoryFilter = $state<"all" | "__uncat" | string>("all");
   let artistCardSize = $state(110);
 
-  const ARTIST_CARD_SIZE_KEY = "mooshieui.bottomPanel.artistCardSize.v1";
+  const ARTIST_CARD_SIZE_KEY = "mokkaui.bottomPanel.artistCardSize.v1";
   try {
     const raw = localStorage.getItem(ARTIST_CARD_SIZE_KEY);
     if (raw) {
@@ -257,7 +257,7 @@
   });
 
   // Sort, grouping and collapsed groups for the favourites list.
-  const ARTIST_ORDER_KEY = "mooshieui.bottomPanel.artistOrder.v1";
+  const ARTIST_ORDER_KEY = "mokkaui.bottomPanel.artistOrder.v1";
   let artistSort = $state<FavouriteSort>("added_desc");
   let artistGroup = $state<FavouriteGroup>("none");
   /** Collapsed group keys, prefixed by grouping mode ("category:cat_x", "letter:A"). */

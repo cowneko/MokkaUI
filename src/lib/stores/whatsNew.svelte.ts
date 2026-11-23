@@ -1,7 +1,7 @@
 import allReleases from "virtual:changelog-releases";
 import { isValidSemver, releasesSince, type ChangelogRelease } from "../utils/changelog.js";
 
-const LAST_SEEN_KEY = "mooshieui.whatsNew.lastSeenVersion.v1";
+const LAST_SEEN_KEY = "mokkaui.whatsNew.lastSeenVersion.v1";
 
 function readLastSeenVersion(): string | null {
   try {

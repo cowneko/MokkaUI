@@ -17,9 +17,9 @@
   } from "../../utils/modelGallerySort.js";
   import ModelPreviewActions from "./ModelPreviewActions.svelte";
 
-  const CACHE_KEY = "mooshieui.checkpoint.civitai.cache.v3";
+  const CACHE_KEY = "mokkaui.checkpoint.civitai.cache.v3";
   const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
-  const SORT_KEY = "mooshieui.checkpoint.gallery.sort.v1";
+  const SORT_KEY = "mokkaui.checkpoint.gallery.sort.v1";
 
   interface CacheEntry {
     data: CheckpointCivitaiInfo;

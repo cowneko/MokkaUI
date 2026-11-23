@@ -15,7 +15,7 @@ import { getLoraCivitaiInfo, type LoraCivitaiInfo } from "../utils/api.js";
  */
 
 /** Shared with LoraGallery.svelte, which owns and writes this cache. */
-const GALLERY_CACHE_KEY = "mooshieui.lora.civitai.cache.v3";
+const GALLERY_CACHE_KEY = "mokkaui.lora.civitai.cache.v3";
 
 export interface LoraKeyword {
   /** The keyword exactly as it is inserted into the prompt. */

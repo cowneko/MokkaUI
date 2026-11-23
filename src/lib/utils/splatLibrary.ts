@@ -6,7 +6,7 @@ import type { SplatResult } from "../types/model3d.js";
 // (Pixal3D) results; the record's `kind` says which.
 function openLibrary(owner: string): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(`mooshieui.model3d.library.${owner}`, 1);
+    const request = indexedDB.open(`mokkaui.model3d.library.${owner}`, 1);
     request.onupgradeneeded = () => {
       const db = request.result;
       if (!db.objectStoreNames.contains("results")) db.createObjectStore("results", { keyPath: "id" });

@@ -210,15 +210,15 @@ function isWebpGalleryFile(filename: string | undefined): boolean {
   return filename?.toLowerCase().endsWith(".webp") ?? false;
 }
 
-const GALLERY_BOARDS_KEY = "mooshieui.gallery.boards.v1";
-const GALLERY_BOARD_NAMES_KEY = "mooshieui.gallery.boardNames.v1";
-const GALLERY_SHOW_GEN_TIME_KEY = "mooshieui.gallery.showGenerationTime.v1";
+const GALLERY_BOARDS_KEY = "mokkaui.gallery.boards.v1";
+const GALLERY_BOARD_NAMES_KEY = "mokkaui.gallery.boardNames.v1";
+const GALLERY_SHOW_GEN_TIME_KEY = "mokkaui.gallery.showGenerationTime.v1";
 // Per LAN account (`userScopedKey`): `boardFilter` names one of the account's
 // own boards.
-const GALLERY_PREFS_KEY = "mooshieui.gallery.prefs.v1";
-const GALLERY_FAVOURITES_KEY = "mooshieui.gallery.favourites.v1";
-const GALLERY_RATINGS_KEY = "mooshieui.gallery.ratings.v1";
-const GALLERY_NSFW_KEY = "mooshieui.gallery.nsfw.v1";
+const GALLERY_PREFS_KEY = "mokkaui.gallery.prefs.v1";
+const GALLERY_FAVOURITES_KEY = "mokkaui.gallery.favourites.v1";
+const GALLERY_RATINGS_KEY = "mokkaui.gallery.ratings.v1";
+const GALLERY_NSFW_KEY = "mokkaui.gallery.nsfw.v1";
 
 export type GallerySortBy = "date" | "name" | "size" | "rating";
 export type GalleryGroupBy = "none" | "date" | "month" | "mode" | "prompt" | "board" | "character" | "layers";

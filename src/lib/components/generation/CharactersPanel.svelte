@@ -241,7 +241,7 @@
     const count = savedCharacters.characters.length;
     if (count === 0) return;
     const content = savedCharacters.exportJson();
-    const filename = "mooshieui-characters.json";
+    const filename = "mokkaui-characters.json";
     try {
       if (typeof window !== "undefined" && "__TAURI_INTERNALS__" in window) {
         const { save } = await import("@tauri-apps/plugin-dialog");

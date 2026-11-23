@@ -62,7 +62,7 @@ export async function musicZip(files: { name: string; blob: Blob }[]): Promise<B
 export async function musicProject(songs: MusicResult[], audio: (song: MusicResult) => Promise<Blob>): Promise<Blob> {
   if (!songs.length || songs.length > 8) throw new Error("music_export_limit");
   const files: { name: string; blob: Blob }[] = [];
-  const manifest = { format: "mooshieui-music-project", version: 1, created_at: new Date().toISOString(),
+  const manifest = { format: "mokkaui-music-project", version: 1, created_at: new Date().toISOString(),
     contents: "Original FLAC, request parameters, score and generation receipts. Does not include model weights, tokens, latents or a guarantee of identical regeneration.", versions: songs };
   files.push({ name: "project.json", blob: new Blob([JSON.stringify(manifest, null, 2)], { type: "application/json" }) });
   let total = files[0].blob.size;

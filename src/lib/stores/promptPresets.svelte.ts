@@ -33,9 +33,9 @@ import {
   presetTokenSlug,
 } from "../utils/promptChunkTokens.js";
 
-const STORAGE_KEY = "mooshieui.promptPresets.v1";
-const ACTIVE_KEY = "mooshieui.promptPresets.active.v1";
-const EXPORT_KIND = "mooshieui.prompt-presets";
+const STORAGE_KEY = "mokkaui.promptPresets.v1";
+const ACTIVE_KEY = "mokkaui.promptPresets.active.v1";
+const EXPORT_KIND = "mokkaui.prompt-presets";
 const EXPORT_VERSION = 1;
 
 import { triggerSync } from "../utils/syncTrigger.js";

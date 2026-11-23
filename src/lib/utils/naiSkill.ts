@@ -26,7 +26,7 @@ import { cachedSkillValue, readCachedSkill } from "./skillCache.js";
  */
 const SKILL_VERSION = 10;
 
-const CACHE_PREFIX = "mooshieui.naiskill.";
+const CACHE_PREFIX = "mokkaui.naiskill.";
 
 /** Ceiling on cached notes, matching the H3 skill for the same reason. */
 const MAX_SKILL_CHARS = 4000;

@@ -6,7 +6,7 @@ import type { MusicComparisonNotes } from "./musicComparison.js";
 // Each signed-in user gets a separate database on this browser/device.
 function openLibrary(owner: string): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(`mooshieui.music.library.${owner}`, 3);
+    const request = indexedDB.open(`mokkaui.music.library.${owner}`, 3);
     request.onupgradeneeded = () => {
       const db = request.result;
       if (!db.objectStoreNames.contains("songs")) db.createObjectStore("songs", { keyPath: "prompt_id" });

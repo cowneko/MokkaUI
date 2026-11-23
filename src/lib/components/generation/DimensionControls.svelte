@@ -15,7 +15,7 @@
   }
   let { suggestedAspect = null, pixelBudgetOnly = false }: Props = $props();
 
-  const AR_COLLAPSE_KEY = "mooshieui.generation.aspectRatioCollapsed.v1";
+  const AR_COLLAPSE_KEY = "mokkaui.generation.aspectRatioCollapsed.v1";
   let arOpen = $state(localStorage.getItem(AR_COLLAPSE_KEY) !== "true");
   let arSaveTimer: ReturnType<typeof setTimeout> | null = null;
   $effect(() => {

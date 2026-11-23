@@ -152,9 +152,9 @@
 
   onMount(async () => {
     // Check if a previous update didn't apply correctly (desktop only)
-    const pending = localStorage.getItem("mooshieui_pending_update");
+    const pending = localStorage.getItem("mokkaui_pending_update");
     if (pending) {
-      localStorage.removeItem("mooshieui_pending_update");
+      localStorage.removeItem("mokkaui_pending_update");
       if (pending !== currentVersion) {
         console.warn(`[Updater] Version mismatch after update: expected v${pending}, running v${currentVersion}`);
         expectedVersion = pending;
@@ -314,7 +314,7 @@
     isInstalling = true;
     clearCountdown();
     console.log(`[Updater] Installing update v${version} and restarting...`);
-    localStorage.setItem("mooshieui_pending_update", version);
+    localStorage.setItem("mokkaui_pending_update", version);
     try {
       await updateObj.install();
       updaterPrefs.markInstalled(version);
@@ -324,7 +324,7 @@
         await relaunch();
       }
     } catch (e) {
-      localStorage.removeItem("mooshieui_pending_update");
+      localStorage.removeItem("mokkaui_pending_update");
       isInstalling = false;
       console.error("[Updater] Install failed:", e);
       updateState = "error";
@@ -376,7 +376,7 @@
       });
       updaterPrefs.markInstalled(version);
       // Store the expected version so we can verify after restart
-      localStorage.setItem("mooshieui_pending_update", version);
+      localStorage.setItem("mokkaui_pending_update", version);
       console.log(`[Updater] Stored pending update version: v${version}`);
       updateState = "ready";
     })();

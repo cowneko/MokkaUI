@@ -31,7 +31,7 @@ class MusicCoverStore {
 
   private saveNativeJob() {
     try {
-      const key = `mooshieui.cover.job.${getAuthUser() ?? "host"}`;
+      const key = `mokkaui.cover.job.${getAuthUser() ?? "host"}`;
       if (this.nativeJob) localStorage.setItem(key, JSON.stringify({ job: this.nativeJob, mode: this.candidateMode, filename: this.filename, time: Date.now() }));
       else localStorage.removeItem(key);
     } catch (error) { console.warn("Failed to retain transcription job", error); }
@@ -71,7 +71,7 @@ class MusicCoverStore {
       if (!this.nativeSupported && this.legacyConfigured && !this.busy) this.backend = "separate";
       if (!this.nativeJob && !this.busy) {
         try {
-          const saved = JSON.parse(localStorage.getItem(`mooshieui.cover.job.${owner ?? "host"}`) ?? "null");
+          const saved = JSON.parse(localStorage.getItem(`mokkaui.cover.job.${owner ?? "host"}`) ?? "null");
           if (saved?.job?.kind === "transcription" && typeof saved.job.prompt_id === "string" && Number.isInteger(saved.job.worker_id) && Date.now() - saved.time < 86400000) {
             this.nativeJob = saved.job; this.jobId = saved.job.prompt_id; this.backend = "native";
             this.filename = saved.filename ?? ""; this.candidateMode = saved.mode === "full" ? "full" : "melody";

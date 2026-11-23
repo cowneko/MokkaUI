@@ -8,12 +8,12 @@ import { ipcListen, isBrowserMode } from "../utils/ipc.js";
 import { locale } from "./locale.svelte.js";
 
 /** Target ref the sidebar bubble was last dismissed for. */
-const BUBBLE_DISMISSED_KEY = "mooshieui_comfyui_bubble_dismissed";
+const BUBBLE_DISMISSED_KEY = "mokkaui_comfyui_bubble_dismissed";
 /**
  * Target ref whose startup auto-update already failed once. Without this an
  * offline user would sit through a doomed git fetch on every single launch.
  */
-const AUTO_UPDATE_FAILED_KEY = "mooshieui_comfyui_autoupdate_failed";
+const AUTO_UPDATE_FAILED_KEY = "mokkaui_comfyui_autoupdate_failed";
 
 function readKey(key: string): string | null {
   try {

@@ -855,7 +855,7 @@
   // Drag onto a board chip
   // ---------------------------------------------------------------------------
 
-  const DRAG_TYPE = "application/x-mooshieui-gallery";
+  const DRAG_TYPE = "application/x-mokkaui-gallery";
   /** The images being dragged: the selection when the dragged tile is part of it, else that tile. */
   let dragImages: OutputImage[] = [];
   let dragActive = $state(false);

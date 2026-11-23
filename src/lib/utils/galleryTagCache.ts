@@ -6,7 +6,7 @@
 
 import type { InterrogationResult } from "../types/index.js";
 
-const DB_NAME = "mooshieui.gallery.tags";
+const DB_NAME = "mokkaui.gallery.tags";
 const STORE = "tags";
 
 function openDb(): Promise<IDBDatabase> {

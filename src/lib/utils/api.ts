@@ -2222,7 +2222,7 @@ export async function exportBackupZipBlob(
   const cd = resp.headers.get("content-disposition") ?? "";
   const match = cd.match(/filename="([^"]+)"/i);
   const date = new Date().toISOString().slice(0, 10);
-  const filename = match?.[1] || `mooshieui-backup-${date}.zip`;
+  const filename = match?.[1] || `mokkaui-backup-${date}.zip`;
   return { blob: await resp.blob(), filename };
 }
 

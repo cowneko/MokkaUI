@@ -52,8 +52,8 @@ import {
   type SpeechBubble,
 } from "../utils/comicBubbles.js";
 
-const BOOKS_STORAGE_KEY = "mooshieui.comic.books.v1";
-const LEGACY_PAGE_STORAGE_KEY = "mooshieui.comic.page.v1";
+const BOOKS_STORAGE_KEY = "mokkaui.comic.books.v1";
+const LEGACY_PAGE_STORAGE_KEY = "mokkaui.comic.page.v1";
 const HISTORY_LIMIT = 40;
 export const MAX_PANEL_HISTORY = 8;
 
@@ -1491,7 +1491,7 @@ class ComicStore {
         }
       }
 
-      // Migrate legacy single-page storage (`mooshieui.comic.page.v1`) into Book 1 Page 1.
+      // Migrate legacy single-page storage (`mokkaui.comic.page.v1`) into Book 1 Page 1.
       const legacyRaw = localStorage.getItem(userScopedKey(LEGACY_PAGE_STORAGE_KEY));
       if (legacyRaw) {
         const data = JSON.parse(legacyRaw) as Partial<SavedPageLegacy>;

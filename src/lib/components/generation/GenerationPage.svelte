@@ -68,8 +68,8 @@
   let { mobileFriendly = false }: Props = $props();
 
   const storageSuffix = mobileFriendly ? ".mobile" : ".desktop";
-  const DIMENSIONS_LAYOUT_KEY = `mooshieui.generation.dimensions.layout.v1${storageSuffix}`;
-  const SECTION_LAYOUT_KEY = `mooshieui.generation.sections.layout.v1${storageSuffix}`;
+  const DIMENSIONS_LAYOUT_KEY = `mokkaui.generation.dimensions.layout.v1${storageSuffix}`;
+  const SECTION_LAYOUT_KEY = `mokkaui.generation.sections.layout.v1${storageSuffix}`;
 
   type SectionId =
     | "dimensions"
@@ -430,7 +430,7 @@
   const leftRenderSections = $derived(leftSections.filter((id) => id !== draggingSection));
   const rightRenderSections = $derived(rightSections.filter((id) => id !== draggingSection));
 
-  const COLLAPSE_KEY = `mooshieui.generation.sections.collapsed.v1${storageSuffix}`;
+  const COLLAPSE_KEY = `mokkaui.generation.sections.collapsed.v1${storageSuffix}`;
 
   function loadCollapseState(): Record<string, boolean> {
     try {
@@ -923,7 +923,7 @@
     }
   }
 
-  const PANEL_LAYOUT_KEY = `mooshieui.panelLayout.v1${storageSuffix}`;
+  const PANEL_LAYOUT_KEY = `mokkaui.panelLayout.v1${storageSuffix}`;
 
   /** The bottom drawer keeps its own height and collapse state for image and for video. */
   type BottomWorkspace = "image" | "video";

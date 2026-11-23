@@ -65,6 +65,6 @@
   {placeholder}
   {rows}
   {minHeight}
-  storageKey={`mooshieui.promptHeight.novelaiCharacter.${field}.${index}`}
+  storageKey={`mokkaui.promptHeight.novelaiCharacter.${field}.${index}`}
   suggestLoraKeywords={field === "prompt"}
 />

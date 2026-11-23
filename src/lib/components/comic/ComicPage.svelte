@@ -92,7 +92,7 @@
 
   // The page's own model and settings (a hidden generation tab App.svelte swaps
   // in while this page is open), shown open until the user folds them away.
-  const SETTINGS_OPEN_KEY = "mooshieui.comic.settingsOpen.v1";
+  const SETTINGS_OPEN_KEY = "mokkaui.comic.settingsOpen.v1";
   function readSettingsOpen(): boolean {
     try {
       return localStorage.getItem(SETTINGS_OPEN_KEY) !== "false";
@@ -974,7 +974,7 @@
           ariaLabel={locale.t("comic.style")}
           rows={2}
           minHeight="min-h-12"
-          storageKey="mooshieui.promptHeight.comic.style"
+          storageKey="mokkaui.promptHeight.comic.style"
         />
         <label class="block pt-1 text-neutral-400" for="comic-setting">{locale.t("comic.setting")}</label>
         <ComicPromptField
@@ -985,7 +985,7 @@
           ariaLabel={locale.t("comic.setting")}
           rows={2}
           minHeight="min-h-12"
-          storageKey="mooshieui.promptHeight.comic.setting"
+          storageKey="mokkaui.promptHeight.comic.setting"
         />
         {#if comic.pages.length > 1}
           <label class="block pt-1 text-[11px] text-neutral-400" for="comic-page-setting-override">{locale.t("comic.page_setting_override")}</label>
@@ -997,7 +997,7 @@
             ariaLabel={locale.t("comic.page_setting_override")}
             rows={1}
             minHeight="min-h-10"
-            storageKey="mooshieui.promptHeight.comic.pageSettingOverride"
+            storageKey="mokkaui.promptHeight.comic.pageSettingOverride"
           />
         {/if}
       </section>
@@ -1063,7 +1063,7 @@
               rows={2}
               minHeight="min-h-14"
               suggestLoraKeywords={true}
-              storageKey="mooshieui.promptHeight.comic.castTags"
+              storageKey="mokkaui.promptHeight.comic.castTags"
             />
           </div>
         {/each}
@@ -1883,7 +1883,7 @@
                 rows={3}
                 minHeight="min-h-16"
                 suggestLoraKeywords={true}
-                storageKey="mooshieui.promptHeight.comic.panelPrompt"
+                storageKey="mokkaui.promptHeight.comic.panelPrompt"
               />
               <div class="flex items-start gap-1.5">
                 <textarea
@@ -1924,7 +1924,7 @@
                 rows={2}
                 minHeight="min-h-12"
                 suggestLoraKeywords={false}
-                storageKey="mooshieui.promptHeight.comic.panelNegative"
+                storageKey="mokkaui.promptHeight.comic.panelNegative"
               />
               {#if comic.cast.length > 0}
                 <div class="flex flex-wrap items-center gap-1">
@@ -1946,7 +1946,7 @@
                 ariaLabel={locale.t("comic.setting_override")}
                 rows={1}
                 minHeight="min-h-10"
-                storageKey="mooshieui.promptHeight.comic.panelSetting"
+                storageKey="mokkaui.promptHeight.comic.panelSetting"
               />
               {#if result?.error}
                 <p class="text-[11px] text-red-400">{result.error}</p>

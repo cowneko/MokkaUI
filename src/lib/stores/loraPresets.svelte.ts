@@ -4,7 +4,7 @@ import { userScopedKey } from "../utils/ipc.js";
 import { locale } from "./locale.svelte.js";
 import { loraTriggers } from "./loraTriggers.svelte.js";
 
-const STORAGE_KEY = "mooshieui.loraPresets.v1";
+const STORAGE_KEY = "mokkaui.loraPresets.v1";
 const EXPORT_VERSION = 1;
 
 export type LoraPresetApplyMode = "replace" | "merge";

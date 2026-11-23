@@ -20,9 +20,9 @@ import yueThumbnail from "../assets/characters/yue-thumbnail.webp?inline";
 import yueReference from "../assets/characters/yue-reference.webp?inline";
 import { createNovelAiCharacter, generation } from "./generation.svelte.js";
 
-const STORAGE_KEY = "mooshieui.savedCharacters.v1";
+const STORAGE_KEY = "mokkaui.savedCharacters.v1";
 /** Per-device view setting, kept out of the synced cards. */
-const CARD_SIZE_KEY = "mooshieui.savedCharacters.cardSize";
+const CARD_SIZE_KEY = "mokkaui.savedCharacters.cardSize";
 
 /** Card picture size range for the Characters tab's size slider, in pixels. */
 export const CARD_SIZE_MIN = 48;
@@ -148,7 +148,7 @@ function sanitizeList(raw: unknown): SavedCharacter[] {
 }
 
 /** The JSON file Export writes and Import reads. */
-export const CHARACTER_EXPORT_FORMAT = "mooshieui.characters";
+export const CHARACTER_EXPORT_FORMAT = "mokkaui.characters";
 
 /** A new card in `architecture`, before it is added. */
 export interface NewCharacter {

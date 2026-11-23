@@ -12,8 +12,8 @@ import {
   type TabSessions,
 } from "../utils/enhancerSession.js";
 
-const STORAGE_KEY = "mooshieui.enhancerSessions.v1";
-const PARKED_STORAGE_KEY = "mooshieui.enhancerTabSessions.v1";
+const STORAGE_KEY = "mokkaui.enhancerSessions.v1";
+const PARKED_STORAGE_KEY = "mokkaui.enhancerTabSessions.v1";
 
 function emptyDropped(): Record<EnhancerFlow, number> {
   return { nai: 0, enhance: 0, h3: 0, compose: 0 };

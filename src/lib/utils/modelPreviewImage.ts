@@ -51,5 +51,5 @@ export type ModelPreviewActionDetail =
   | { type: "style_reference"; imageUrl: string };
 
 export function dispatchModelPreviewAction(detail: ModelPreviewActionDetail): void {
-  window.dispatchEvent(new CustomEvent("mooshie:model-preview-action", { detail }));
+  window.dispatchEvent(new CustomEvent("mokkaui:model-preview-action", { detail }));
 }

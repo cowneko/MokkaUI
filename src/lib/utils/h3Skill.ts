@@ -28,7 +28,7 @@ import { h3FormatOf } from "./h3Prompt.js";
  */
 const SKILL_VERSION = 2;
 
-const CACHE_PREFIX = "mooshieui.h3skill.";
+const CACHE_PREFIX = "mokkaui.h3skill.";
 
 /**
  * Ceiling on cached notes. Generous for a dozen bullets, and low enough that a

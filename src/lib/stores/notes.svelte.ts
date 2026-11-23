@@ -1,7 +1,7 @@
 import { triggerSync } from "../utils/syncTrigger.js";
 import { userScopedKey } from "../utils/ipc.js";
 
-const NOTES_KEY = "mooshieui.notes.v1";
+const NOTES_KEY = "mokkaui.notes.v1";
 
 class NotesStore {
   text = $state("");

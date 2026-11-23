@@ -92,12 +92,12 @@
   }
 
   const claudeCodeCommand = $derived(
-    status ? `claude mcp add --transport http mooshieui ${status.url} --header "Authorization: Bearer ${status.token}"` : "",
+    status ? `claude mcp add --transport http mokkaui ${status.url} --header "Authorization: Bearer ${status.token}"` : "",
   );
   const jsonConfig = $derived(
     status
       ? JSON.stringify(
-          { mcpServers: { mooshieui: { type: "http", url: status.url, headers: { Authorization: `Bearer ${status.token}` } } } },
+          { mcpServers: { mokkaui: { type: "http", url: status.url, headers: { Authorization: `Bearer ${status.token}` } } } },
           null,
           2,
         )
@@ -263,7 +263,7 @@
               <input
                 id="settings-mcp-public-url"
                 type="url"
-                placeholder="https://mooshie.example.com"
+                placeholder="https://mokkaui.example.com"
                 bind:value={publicUrlInput}
                 disabled={busy}
                 class="flex-1 min-w-0 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-1.5 text-sm text-neutral-100 focus:outline-none focus:border-indigo-500 transition-colors"

@@ -36,7 +36,7 @@
   import NaiEnhanceReview from "./NaiEnhanceReview.svelte";
   import type { OutputImage } from "../../types/index.js";
 
-  const OPTIONS_KEY = "mooshieui.enhanceChat.options";
+  const OPTIONS_KEY = "mokkaui.enhanceChat.options";
 
   function readStored(key: string): string | null {
     try {

@@ -86,7 +86,7 @@
   let showRerunSetupConfirm = $state(false);
   let showBackupRestoreModal = $state(false);
   function rerunSetup() {
-    localStorage.setItem("mooshieui_force_setup", "1");
+    localStorage.setItem("mokkaui_force_setup", "1");
     location.reload();
   }
 
@@ -840,7 +840,7 @@
       const { save: saveDialog } = await import("@tauri-apps/plugin-dialog");
       const destination = await saveDialog({
         title: locale.t('settings.about.save_dialog_title'),
-        defaultPath: "mooshieui-diagnostics.log",
+        defaultPath: "mokkaui-diagnostics.log",
         filters: [{ name: locale.t("settings.about.log_files_filter"), extensions: ["log", "txt"] }],
       });
       if (!destination) return;
@@ -868,7 +868,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "mooshieui-diagnostics.log";
+      a.download = "mokkaui-diagnostics.log";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -1254,7 +1254,7 @@
   async function installReadyUpdate() {
     if (!updateObj || isInstallingReady) return;
     isInstallingReady = true;
-    if (updateVersion) localStorage.setItem("mooshieui_pending_update", updateVersion);
+    if (updateVersion) localStorage.setItem("mokkaui_pending_update", updateVersion);
     try {
       await updateObj.install();
       if (updateVersion) updaterPrefs.markInstalled(updateVersion);
@@ -1266,7 +1266,7 @@
         window.location.reload();
       }
     } catch (e) {
-      localStorage.removeItem("mooshieui_pending_update");
+      localStorage.removeItem("mokkaui_pending_update");
       isInstallingReady = false;
       updateState = "error";
       updateError = String(e);
@@ -1331,7 +1331,7 @@
       // Record the expected version so UpdateNotification can verify on the
       // next launch that the update actually applied (mirrors the banner path).
       if (targetVersion) {
-        localStorage.setItem("mooshieui_pending_update", targetVersion);
+        localStorage.setItem("mokkaui_pending_update", targetVersion);
         updaterPrefs.markInstalled(targetVersion);
       }
       updateState = "ready";
@@ -1347,7 +1347,7 @@
     }
   }
   // Active settings category (sidebar), persisted across tab switches
-  const ACTIVE_CATEGORY_KEY = "mooshieui.settings.activeCategory.v1";
+  const ACTIVE_CATEGORY_KEY = "mokkaui.settings.activeCategory.v1";
   let activeCategory = $state(loadActiveCategory());
 
   function loadActiveCategory(): string {
@@ -1361,7 +1361,7 @@
   }
 
   const sections = [
-    { key: "appMode", labelKey: "settings.sections.app_mode", keywords: "browser app mode desktop native window web switch ui trust localhost proxy sign in lan network remote access share phone ip address local mooshieui.local firewall" },
+    { key: "appMode", labelKey: "settings.sections.app_mode", keywords: "browser app mode desktop native window web switch ui trust localhost proxy sign in lan network remote access share phone ip address local mokkaui.local firewall" },
     { key: "connection", labelKey: "settings.sections.connection", keywords: "server mode url port remote autolaunch" },
     { key: "appearance", labelKey: "settings.sections.appearance", keywords: "theme dark light font scale palette custom create logo background branding import export color experimental 3d idol splat image to 3d" },
     { key: "performance", labelKey: "settings.sections.performance", keywords: "vram mode high low normal keep alive close attention backend sage flash" },
@@ -1511,7 +1511,7 @@
     // must not overwrite it with a stale local copy.
     if (!config.civitai_api_key && !config.civitai_api_key_configured) {
       try {
-        const lsKey = localStorage.getItem("mooshieui.civitai.apiKey.v1");
+        const lsKey = localStorage.getItem("mokkaui.civitai.apiKey.v1");
         if (lsKey) {
           config.civitai_api_key = lsKey;
           await updateConfig(config);
@@ -2457,7 +2457,7 @@
                     {locale.t('settings.lan.warning')}
                   </p>
 
-                  <!-- LAN address: the mooshieui.local name first, then the IPs as a fallback -->
+                  <!-- LAN address: the mokkaui.local name first, then the IPs as a fallback -->
                   <div class="bg-neutral-800 rounded-lg px-3 py-2 space-y-1">
                     <p class="text-xs text-neutral-400">{locale.t('settings.lan.access_at')}</p>
                     {#each lanHostnameUrl ? [lanHostnameUrl, ...lanAddresses] : lanAddresses as addr (addr)}

@@ -40,7 +40,7 @@ import type {
   VoicePreview,
 } from "../types/scene.js";
 
-const STORAGE_KEY = "mooshieui.animeScene.v1";
+const STORAGE_KEY = "mokkaui.animeScene.v1";
 
 export interface SceneTake {
   takeId: string;

@@ -20,7 +20,7 @@ import {
  * `frame_rate` widget.
  */
 
-const TIMELINE_KEY = "mooshieui.videoTimeline.v1";
+const TIMELINE_KEY = "mokkaui.videoTimeline.v1";
 
 /** Default shot length when a new segment is added: two seconds. */
 const DEFAULT_SEGMENT_FRAMES = H3_FPS * 2;
