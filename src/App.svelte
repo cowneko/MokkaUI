@@ -5018,6 +5018,7 @@
           fps={gallery.selectedImage?.fps ?? 24}
           density="full"
           filename={gallery.selectedImage?.gallery_filename}
+          sizeHintBytes={gallery.selectedImage?.file_size_bytes}
           onContextMenu={openLightboxContextMenu}
         />
       {:else if gallery.lightboxUrl}

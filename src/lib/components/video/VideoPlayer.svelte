@@ -10,6 +10,7 @@
 
 <script lang="ts">
   import { locale } from "../../stores/locale.svelte.js";
+  import { createVideoObjectUrl, isCustomSchemeMediaUrl } from "../../utils/tauriMediaSrc.js";
   import VideoExportPopover from "./VideoExportPopover.svelte";
   import VideoInterpolatePopover from "./VideoInterpolatePopover.svelte";
   import VideoDraftAction from "./VideoDraftAction.svelte";
@@ -23,6 +24,9 @@
     density?: "full" | "compact";
     /** Gallery filename; presence enables the export button (Task 10). */
     filename?: string;
+    /** On-disk size of the clip, when the index knows it: lets the byte
+     *  transport refuse an oversized file before copying it into memory. */
+    sizeHintBytes?: number;
     onContextMenu?: (e: MouseEvent) => void;
   }
 
@@ -31,6 +35,7 @@
     fps = 24,
     density = "full",
     filename = undefined,
+    sizeHintBytes = undefined,
     onContextMenu = undefined,
   }: Props = $props();
 
@@ -63,6 +68,106 @@
   let interpolateOpen = $state(false);
   let videoWidth = $state(0);
   let videoHeight = $state(0);
+
+  // A media element cannot read the gallery:// scheme on every engine: on the
+  // WebKitGTK build this runs on Linux the load is refused outright, while
+  // WebView2 streams the very same URL with Range requests. So the native URL
+  // goes first and the byte transport is the escalation, tried once when the
+  // element reports a failure — the same order the image path uses. The blob a
+  // clip ends up on belongs to this instance and is revoked on clip change and
+  // unmount; an escalation that fails is surfaced (`transportFailed`) instead of
+  // leaving a video element black and silent, which is how this failed unnoticed.
+  // `loadClip` (run on mount and on every clip change) is the only writer, so the
+  // element is never left pointing at a URL this component does not own.
+  let playSrc = $state("");
+  let transportFailed = $state(false);
+  let clipEscalated = false;
+  let ownedClipUrl: string | null = null;
+  let loadGen = 0;
+
+  /** How long a native clip may stay at readyState 0 before bytes take over. */
+  const NATIVE_STALL_MS = 2000;
+  let stallTimer: number | undefined;
+
+  function clearStallWatch(): void {
+    if (stallTimer !== undefined) {
+      clearTimeout(stallTimer);
+      stallTimer = undefined;
+    }
+  }
+
+  function releaseClip(): void {
+    if (ownedClipUrl) URL.revokeObjectURL(ownedClipUrl);
+    ownedClipUrl = null;
+  }
+
+  function loadClip(): void {
+    // Native URL: free of any copy, and it streams wherever the scheme works.
+    ++loadGen;
+    clearStallWatch();
+    releaseClip();
+    decodeFailed = false;
+    transportFailed = false;
+    clipEscalated = false;
+    playSrc = src;
+    // A refused load is normally announced by `error`, but a silent refusal is
+    // what this engine did to video before any of this was written down, so a
+    // clip that has not begun loading at all is treated the same way. Two seconds
+    // is far past any local file's first frame, and a clip that merely streams
+    // slowly has reached readyState ≥ 1 by then and is left alone.
+    if (isCustomSchemeMediaUrl(src)) {
+      const gen = loadGen;
+      stallTimer = window.setTimeout(() => {
+        if (gen !== loadGen) return;
+        if ((videoEl?.readyState ?? 0) > 0) return;
+        escalateToBytes(gen);
+      }, NATIVE_STALL_MS);
+    }
+  }
+
+  /**
+   * The element refused what it was given. For a URL it should be able to read
+   * that is a decode failure and there is nothing to retry; for a custom scheme
+   * it is the engine's own restriction, so hand the same file over as bytes.
+   */
+  function onVideoError(): void {
+    if (!playSrc) return;
+    // An aborted load is not a failure to play: handing the element a better URL
+    // (native → bytes) can surface the cancelled load on some engines, and
+    // treating it as one would hide the clip that is about to appear.
+    if (videoEl?.error?.code === 1 /* MEDIA_ERR_ABORTED */) return;
+    clearStallWatch();
+    const gen = loadGen;
+    if (clipEscalated || !isCustomSchemeMediaUrl(src)) {
+      decodeFailed = true;
+      return;
+    }
+    escalateToBytes(gen);
+  }
+
+  /** One attempt at the byte transport, owned by this instance once it lands. */
+  function escalateToBytes(gen: number): void {
+    if (clipEscalated) return;
+    clipEscalated = true;
+    void createVideoObjectUrl(src, sizeHintBytes).then(
+      (href) => {
+        if (gen !== loadGen) {
+          // Superseded mid-flight (or unmounted): this blob has no owner.
+          if (href) URL.revokeObjectURL(href);
+          return;
+        }
+        if (href) {
+          ownedClipUrl = href;
+          playSrc = href;
+        } else {
+          transportFailed = true;
+        }
+      },
+      () => {
+        if (gen === loadGen) transportFailed = true;
+      },
+    );
+  }
 
   const clipFrames = $derived(
     duration > 0 && fps > 0 ? Math.max(1, Math.round(duration * fps)) : 0
@@ -286,7 +391,10 @@
   }
 
   function retry() {
-    // Flipping decodeFailed re-mounts the <video> element; autoplay handles the rest.
+    // Re-read the bytes as well: the common failure is the transport, not the
+    // decoder, and re-mounting the element alone would hand it the same
+    // unreadable URL. Flipping decodeFailed re-mounts; autoplay handles the rest.
+    loadClip();
     decodeFailed = false;
   }
 
@@ -301,6 +409,12 @@
 
   $effect(() => () => {
     if (idleTimer) clearTimeout(idleTimer);
+    // Unmount: invalidate anything still resolving (it revokes its own blob) and
+    // free the clip that is owned. The lightbox unmounts on every close, so this
+    // is what keeps a watched clip from leaking its whole file.
+    ++loadGen;
+    clearStallWatch();
+    releaseClip();
   });
 
   $effect(() => {
@@ -309,10 +423,12 @@
     // Incrementing measureGen invalidates any in-flight measureSeam so it
     // cannot write a stale result after this reset completes.
     void src;
+    void sizeHintBytes;
     seamDelta = null;
     seamDeltaComputed = false;
     decodeFailed = false;
     measureGen++;
+    loadClip();
   });
 </script>
 
@@ -329,7 +445,7 @@
   aria-label={locale.t("preview.video_alt")}
   tabindex="-1"
 >
-  {#if decodeFailed}
+  {#if decodeFailed || transportFailed}
     <div class="flex flex-col items-center gap-3 p-6 text-center">
       <p class="text-sm text-neutral-300">{locale.t("video.player.decode_error")}</p>
       <button
@@ -343,20 +459,26 @@
     <!-- svelte-ignore a11y_media_has_caption -->
     <video
       bind:this={videoEl}
-      {src}
+      src={playSrc || undefined}
       class="max-w-full max-h-full object-contain"
       autoplay
       playsinline
       onloadedmetadata={() => {
+        // The native load really started: no need for the stall watchdog.
+        clearStallWatch();
         duration = videoEl?.duration ?? 0;
         videoWidth = videoEl?.videoWidth ?? 0;
         videoHeight = videoEl?.videoHeight ?? 0;
+        // The src arrives after mount (the byte read has to finish first), and an
+        // autoplay the engine declined is silent, so ask for playback directly.
+        // A rejection here only means the user presses play.
+        videoEl?.play().catch(() => {});
       }}
       ontimeupdate={onTimeUpdate}
       onprogress={onProgress}
       onplay={() => (playing = true)}
       onpause={() => (playing = false)}
-      onerror={() => (decodeFailed = true)}
+      onerror={onVideoError}
     ></video>
 
     <div
