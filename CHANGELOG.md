@@ -5,6 +5,7 @@
 ### MokkaUI
 - **MokkaUI's own version line**: first release under the MokkaUI name, numbered independently of upstream. Own app id (`com.mokkaui.desktop`), own data folder, window class and process names, so it installs and runs side by side with the app it was forked from.
 - **Rebrand pass**: product name, locales, docs, CI workflows, package metadata and ComfyUI node display names all speak MokkaUI.
+- **New mark, "Grain Circuit"**: a coffee bean whose crease is a single graph edge — cream bean on a mocha `#7A4F33` tile, copper `#C85A26` crease. Drawn as vectors at a 100-unit grid and baked through the whole chain: in-app logo, favicon, `icon-source.png` and all 52 desktop, installer, Android and iOS icons. Two shapes only, so the crease survives downscaling: measured in the running app it holds 121 luminance points and a 161-point red-blue hue gap against the bean.
 
 ### Gallery media on Linux
 - **Images paint again**: WebKitGTK cannot decode a `gallery://` URL from a cross-origin page, so gallery tiles, live generation previews, the Image Info viewer and **Compare with** were black rectangles in development builds. Media now travels over the desktop IPC bridge there, with a one-shot byte fallback.

@@ -1,14 +1,9 @@
-<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MooshieUI">
-  
-  <rect x="3" y="3" width="94" height="94" rx="27" fill="#181612"></rect>
-  <rect x="3.75" y="3.75" width="92.5" height="92.5" rx="26.25" fill="none" stroke="#ffcc00" stroke-opacity="0.22" stroke-width="1.5"></rect>
-  
-  <g stroke="#ffcc00" fill="#ffcc00">
-    <path d="M29 71 L29 29 L50 56 L71 29 L71 71" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-    <circle cx="29" cy="29" r="7.5"></circle>
-    <circle cx="71" cy="29" r="7.5"></circle>
-    <circle cx="50" cy="56" r="7.5"></circle>
-    <circle cx="29" cy="71" r="7.5"></circle>
-    <circle cx="71" cy="71" r="7.5"></circle>
+<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MokkaUI">
+  <!-- MokkaUI: a coffee bean whose crease is a single graph edge. Tile #7A4F33 mocha,
+       bean cream, crease copper. Reads from a 16 px taskbar dot to a 1024 px app icon. -->
+  <rect x="3" y="3" width="94" height="94" rx="23" fill="#7A4F33"/>
+  <g transform="rotate(-28 50 50)">
+    <ellipse cx="50" cy="50" rx="31" ry="22.5" fill="#F7EADA"/>
+    <path d="M23 53 Q 37 37 50 50 T 77 47" stroke="#C85A26" stroke-width="7.5" stroke-linecap="round"/>
   </g>
 </svg>
